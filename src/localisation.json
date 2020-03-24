@@ -1,0 +1,56 @@
+{
+   "IT": {
+      "title": "Il COVID-19 in Italia",
+      "header": "La situazione aggiornata al",
+      "positives": "Positivi",
+      "recovered": "Guariti",
+      "deceased": "Deceduti",
+      "evolution": "Evoluzione dell'epidema",
+      "daily": "Situazione per giorno",
+      "positiveCases": "Dettaglio dei casi positivi",
+      "isolated": "In isolamento domiciliare",
+      "hospitalized": "Ricoverati con sintomi",
+      "therapy": "In terapia intensiva",
+      "increment": "* incremento percentuale rispetto la rilevamento precedente",
+      "disclaimer": {
+         "0": "I dati sono estratti dal sito del \n",
+         "1": "Ministero della Salute",
+         "2": "\ne sono qui riportati a titolo puramente informativo e senza scopo di lucro. Si invita a consultare sempre le fonti ufficiali per la verifica dei dati, e si declina qualsiasi responsabilità relativamente ad eventuali errori presenti su questo sito.",
+         "3": "Data API:\n"
+      }
+   },
+   "EN": {
+      "title": "COVID-19 in Italy",
+      "header": "Situation update -",
+      "positives": "Positives",
+      "recovered": "Recovered",
+      "deceased": "Deceased",
+      "evolution": "Evolution of the epidemic",
+      "daily": "Situation daily",
+      "positiveCases": "Details about the positive cases",
+      "isolated": "In home isolation",
+      "hospitalized": "Hospitalized with symptoms",
+      "therapy": "In intensive care",
+      "increment": "* percentage increase from the previous measurement",
+      "disclaimer": {
+         "0":"Data are extracted from the website of the \n",
+         "1": "Italian Ministry of Health",
+         "2": "\nand are shown here for informative purposes only. We recommend to always check the official source to verify the data, and we don't take any responsibility for any wrong data that might be available on this website.",
+         "3": "Data API:\n"
+      },
+      "months": {
+         "gennaio": "January",
+         "febbraio": "February",
+         "marzo": "March",
+         "aprile": "April",
+         "maggio": "May",
+         "giugno": "June",
+         "luglio": "July",
+         "agosto": "August",
+         "settembre": "September",
+         "ottobre": "October",
+         "novembre": "November",
+         "dicembre": "December"
+      }
+   }
+}
