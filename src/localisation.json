@@ -11,7 +11,7 @@
       "isolated": "In isolamento domiciliare",
       "hospitalized": "Ricoverati con sintomi",
       "therapy": "In terapia intensiva",
-      "increment": "* incremento percentuale rispetto la rilevamento precedente",
+      "increment": "* incremento percentuale rispetto la rilevamento precedente.",
       "disclaimer": {
          "0": "I dati sono estratti dal sito del \n",
          "1": "Ministero della Salute",
@@ -31,7 +31,7 @@
       "isolated": "In home isolation",
       "hospitalized": "Hospitalized with symptoms",
       "therapy": "In intensive care",
-      "increment": "* percentage increase from the previous measurement",
+      "increment": "* percentage increase from the previous measurement.",
       "disclaimer": {
          "0":"Data are extracted from the website of the \n",
          "1": "Italian Ministry of Health",
