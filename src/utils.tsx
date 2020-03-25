@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export const parseDate = (date: string) => {
    const splitDate = date.split("/");
 
@@ -29,3 +31,25 @@ export const getDailyIncrement = (prevData: number, currData: number) => {
 
    return incrementString 
 };
+
+// export const useFetch = (url: string) => {
+//    const [state, setState] = useState({ data: null, isLoading: false });
+
+//    useEffect(() => {
+//       setState(state => ({ data: state.data, isLoading: true}));
+
+//       fetch(url)
+//          .then(res => res.json())
+//          .then(payload => {
+//             let dataArray: any[] = [];
+
+//             for (let datum in payload) {
+//                dataArray.push(payload[datum]);
+//             }
+
+//             setState({ data: dataArray, isLoading: false});
+//          })
+//    }, [])
+
+//    return state;
+// }

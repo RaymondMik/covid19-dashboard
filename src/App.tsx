@@ -16,7 +16,11 @@ function App() {
   const [currentLanguage, setCurrentLanguage] = useState<string>("IT");
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  // const [data, isLoading] = useFetch("https://c-scraper-it.firebaseio.com/data.json");
+
   const COLORS = ["#1BC98E", "#f8f9fa", "#E64759"];
+
+
 
   useEffect(() => {
     fetch("https://c-scraper-it.firebaseio.com/data.json")
@@ -41,8 +45,6 @@ function App() {
 
   //@ts-ignore
   const localisation: any = L.default[currentLanguage];
-
- 
 
   const getSourceLink = (cssClass?: string) => (
     <p className={`source-link ${cssClass}`}>

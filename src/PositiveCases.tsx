@@ -71,7 +71,7 @@ const PositiveCases = (props: any) => {
        </ResponsiveContainer>
        <ul className="positive-details">{positiveCaseData.map((data: any, i: number) => (
          <li key={i}>
-           <span className="positive-details__icon" style={{ backgroundColor: props.COLORS[i]}}/>{`${mapLabel(data.name)}: ${data.value} (${data.percentage})`}&#42;
+           <span className="positive-details__icon" style={{ backgroundColor: props.COLORS[i]}} />{`${mapLabel(data.name)}: ${data.value} (${data.percentage})`}
          </li>))}
        </ul>
      </section>
