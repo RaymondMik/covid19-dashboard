@@ -4,6 +4,18 @@
   font-family: 'Lato', sans-serif;
 }
 
+.site-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.site-icon {
+  height: 32px;
+  width: 32px;
+  transform: rotateZ(15deg);
+  margin-right: 10px;
+}
+
 nav {
   position: fixed;
   top: 0;
@@ -20,8 +32,9 @@ nav {
 }
 
 h2 {
-  font-size: 1.7em;
+  font-size: 1.6em;
   font-weight: 700;
+  margin: 0;
 }
 
 h4 {

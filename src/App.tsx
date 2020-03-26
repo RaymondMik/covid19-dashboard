@@ -8,6 +8,7 @@ import PositiveCases from "./PositiveCases";
 import { getHeaderText, getDailyIncrement } from "./utils";
 
 import * as L from "./localisation.json";
+import icon from "./icons/icon.svg";
 
 function App() {
   const [data, setData] = useState<any>({});
@@ -65,7 +66,10 @@ function App() {
   return (
     <div className="container-fluid app">
       <nav>
-        <h2>{localisation.title}</h2>
+        <div className="site-title-container">
+          <img src={icon} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
+          <h2>{localisation.title}</h2>
+        </div>
         <div>
           <span 
             className={`language-selection ${currentLanguage === "IT" ? "selected" : ""}`}

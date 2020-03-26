@@ -1,0 +1,35 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="66" width="66" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <circle stroke-width="4" stroke="#ffffff" transform="rotate(6 32,31.999999999999986) " id="svg_1" fill="none" r="21" cy="32" cx="32"/>
+  <rect id="svg_3" fill="#ffffff" y="7" x="31.096735" width="2" height="8"/>
+  <rect id="svg_4" fill="#ffffff" y="8.815" x="22.458" width="2" transform="matrix(0.9136,-0.4067,0.4067,0.9136,-3.1842,10.6484) " height="8.001"/>
+  <rect id="svg_5" fill="#ffffff" y="11.01" x="18.656" width="2" transform="matrix(0.809,-0.5879,0.5879,0.809,-5.069,14.4225) " height="8.001"/>
+  <rect id="svg_6" fill="#ffffff" y="17.5" x="12.813" width="2" transform="matrix(0.5,-0.866,0.866,0.5,-11.7129,22.7126) " height="8"/>
+  <rect id="svg_7" fill="#ffffff" y="25.805" x="10.115" width="2" transform="matrix(0.1045,-0.9945,0.9945,0.1045,-19.6886,37.745) " height="8.001"/>
+  <rect id="svg_8" fill="#ffffff" y="33.195" x="7.114" width="8.001" transform="matrix(0.9945,-0.1045,0.1045,0.9945,-3.5119,1.3484) " height="2"/>
+  <rect id="svg_9" fill="#ffffff" y="41.5" x="9.813" width="8" transform="matrix(0.8661,-0.4999,0.4999,0.8661,-19.3966,12.5975) " height="2"/>
+  <rect id="svg_10" fill="#ffffff" y="47.989" x="15.656" width="8.001" transform="matrix(0.5878,-0.809,0.809,0.5878,-31.5301,36.094) " height="2"/>
+  <rect id="svg_11" fill="#ffffff" y="50.273378" x="19.497347" width="8.001" transform="matrix(0.4067,-0.9135,0.9135,0.4067,-32.8426,51.7971) " height="2"/>
+  <rect id="svg_12" fill="#ffffff" y="49" x="31" width="2" height="8"/>
+  <rect id="svg_13" fill="#ffffff" y="47.184" x="39.541" width="2" transform="matrix(0.9136,-0.4067,0.4067,0.9136,-17.3127,20.9128) " height="8.001"/>
+  <rect id="svg_14" fill="#ffffff" y="44.989" x="43.344" width="2" transform="matrix(0.809,-0.5879,0.5879,0.809,-20.3275,35.4261) " height="8.001"/>
+  <rect id="svg_15" fill="#ffffff" y="38.5" x="49.187" width="2" transform="matrix(0.5,-0.866,0.866,0.5,-11.7127,64.7131) " height="8"/>
+  <rect id="svg_16" fill="#ffffff" y="30.194" x="51.885" width="2" transform="matrix(0.1045,-0.9945,0.9945,0.1045,13.3521,83.2179) " height="8.001"/>
+  <rect id="svg_17" fill="#ffffff" y="28.805" x="48.885" width="8.001" transform="matrix(0.9945,-0.1045,0.1045,0.9945,-2.8246,5.6887) " height="2"/>
+  <rect id="svg_18" fill="#ffffff" y="20.5" x="46.187" width="8" transform="matrix(0.8661,-0.4999,0.4999,0.8661,-4.0268,27.9688) " height="2"/>
+  <rect id="svg_19" fill="#ffffff" y="14.01" x="40.343" width="8.001" transform="matrix(0.5878,-0.809,0.809,0.5878,6.1341,42.0606) " height="2"/>
+  <rect id="svg_20" fill="#ffffff" y="11.815" x="36.541" width="8.001" transform="matrix(0.4067,-0.9135,0.9135,0.4067,12.3449,44.6396) " height="2"/>
+  <circle id="svg_22" fill="#ffffff" r="3" cy="5" cx="32"/>
+  <circle id="svg_23" fill="#ffffff" r="3" cy="18.5" cx="8.617"/>
+  <path id="svg_24" fill="#ffffff" d="m7.213735,42.998735c-1.434,0.828 -1.926,2.664 -1.098,4.098s2.664,1.926 4.098,1.098c1.434,-0.828 1.926,-2.664 1.098,-4.098s-2.664,-1.926 -4.098,-1.098z"/>
+  <circle id="svg_25" fill="#ffffff" r="3" cy="59" cx="32"/>
+  <path id="svg_26" fill="#ffffff" d="m56.883,42.902c-1.434,-0.828 -3.27,-0.336 -4.098,1.098s-0.336,3.27 1.098,4.098c1.434,0.828 3.27,0.336 4.098,-1.098s0.336,-3.27 -1.098,-4.098z"/>
+  <circle id="svg_27" fill="#ffffff" r="3" cy="18.5" cx="55.383"/>
+ </g>
+</svg>
