@@ -30,7 +30,7 @@ const Daily = ({
       >
         {
           data.map((data: any, i: number) => (
-            <option key={i} value={data.data}>{data.data}</option>
+            <option key={i} value={data.data}>{parseDate(data.data)}</option>
           ))
         }
       </select>
@@ -42,7 +42,7 @@ const Daily = ({
           <Tooltip contentStyle={{backgroundColor: "#282c34"}}/>
           <Bar dataKey="totale_attualmente_positivi" name={localisation.positives} barSize={60} fill={COLORS[0]} />
           <Bar dataKey="dimessi_guariti" name={localisation.recovered} barSize={60} fill={COLORS[1]} />
-          <Bar dataKey="deceduti" name={localisation.deceased} barSize={60} fill={COLORS[2]} />
+          <Bar dataKey="deceduti" name={localisation.deaths} barSize={60} fill={COLORS[2]} />
         </BarChart>
       </ResponsiveContainer>
       <ul>
@@ -56,7 +56,7 @@ const Daily = ({
         </li>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[2]}}/>
-          {localisation.deceased}: {data[selectedDateIndex].deceduti} ({getDailyIncrement(data[selectedDateIndex - 1].deceduti, data[selectedDateIndex].deceduti)})&#42;
+          {localisation.deaths}: {data[selectedDateIndex].deceduti} ({getDailyIncrement(data[selectedDateIndex - 1].deceduti, data[selectedDateIndex].deceduti)})&#42;
         </li>
       </ul>
   </section>)

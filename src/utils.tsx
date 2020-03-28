@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
 export const parseDate = (date: string) => {
-   const splitDate = date.split("/");
+   const splitDate: string[] = date.split("-");
+   const splitTime = `${splitDate[2].split("T")[1].split(":")[0]}:${splitDate[2].split("T")[1].split(":")[1]}`;
+   const splitDay = splitDate[2].split("T")[0];
 
-   return `${splitDate[1]}/${splitDate[0]}/${splitDate[2]}`;
+   return `${splitDay}/${splitDate[1]}/${splitDate[0]}, ${splitTime}`;
 }
 
 // export const getHeaderText = (currentLanguage: string, lastElementHeader: string, localisedHeader: string, localisedMonths: any) => {
@@ -14,7 +16,7 @@ export const parseDate = (date: string) => {
 //       if (currentLanguage === "EN") {
 //          return localisedMonths[match]
 //       }
-
+// 
 //       return match
 //    }).replace("ore", "at");
 
@@ -26,7 +28,7 @@ export const getDailyIncrement = (prevData: number, currData: number) => {
    const percentageDifference: number = (difference / prevData) * 100;
 
    const incrementString = percentageDifference !== 0 
-      ? `${percentageDifference > 0 ? "+" : ""}${percentageDifference.toFixed(0).toString()}%`
+      ? `${percentageDifference > 0 ? "+" : ""}${difference} (${percentageDifference.toFixed(0).toString()}%)`
       : "↔"
 
    return incrementString 

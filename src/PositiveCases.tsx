@@ -58,7 +58,7 @@ const PositiveCases = (props: any) => {
        >
          {
            props.data.map((datum: any, i: number) => (
-             <option key={i} value={datum.data}>{datum.data}</option>
+             <option key={i} value={datum.data}>{parseDate(datum.data)}</option>
            ))
          }
        </select>}

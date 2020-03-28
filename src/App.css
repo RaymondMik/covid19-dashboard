@@ -65,16 +65,57 @@ h4 {
   box-sizing: border-box;
 }
 
-.daily-numbers {
+.header-title {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  font-size: 1.3em;
+}
+
+.title-place h3{
   font-weight: bold;
 }
 
-.section-title {
-  font-size: 1.2em;
-  margin-bottom: 4%;
+.title-details p {
+  margin-bottom: 0;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.details-continer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.7em;
+}
+
+.details-panel {
+  display: inline-block;
+  width: 19%;
+  padding: 1% 0;
+  text-align: center;
+  border-radius: 3px;
+  background-color: #2d3748;
+}
+
+.details-title {
+  font-size: .8em;
+  border-bottom: 1px solid #1a202c;
+}
+
+.details-value {
+  position: relative;
+  font-weight: bold;
+}
+
+.details-value p {
+  font-size: 2.5em;
+  margin-bottom: 0;
+}
+
+.value-difference {
+  font-size: 1.1em;
+  font-weight: bold;
+  
 }
 
 .select-day {

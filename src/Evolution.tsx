@@ -7,8 +7,6 @@ const Evolution = (props: any) => {
     return datum;
   });
 
-  console.log(333, mappedData);
-
   return (
    <section className="panel situation-evolution">
      <h3 className="section-title">{props.localisation.evolution}</h3>

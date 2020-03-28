@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
+import { parseDate } from "./utils";
 
 import Evolution from "./Evolution";
 import Daily from "./Daily";
@@ -21,13 +22,12 @@ function App() {
 
   const COLORS = ["#1BC98E", "#f8f9fa", "#E64759"];
 
-
-
   useEffect(() => {
     // fetch("https://c-scraper-it.firebaseio.com/data.json")
     fetch("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json")
       .then(response => response.json())
       .then(data => {
+
         console.log(999, data);
 
         setData(data);
@@ -87,19 +87,64 @@ function App() {
           <>
             <div className="row">
               <div className="col-lg-12">
-                <header className="panel"><h4>{localisation.header}: {data[data.length -1].data}</h4>
-                  <div className="daily-numbers">
-                    <span style={{color: COLORS[0]}}>
-                      {localisation.positives}: {data[data.length -1].totale_attualmente_positivi} <span className="percentage-increase">{getDailyIncrement(data[data.length -2].totale_attualmente_positivi, data[data.length -1].totale_attualmente_positivi)}&#42;</span>
-                    </span>
-                    <span  style={{color: COLORS[1]}}>
-                      {localisation.recovered}: {data[data.length -1].dimessi_guariti} <span className="percentage-increase">{getDailyIncrement(data[data.length -2].dimessi_guariti, data[data.length -1].dimessi_guariti)}&#42;</span>
-                    </span>
-                    <span  style={{color: COLORS[2]}}>
-                      {localisation.deceased}: {data[data.length -1].deceduti} <span className="percentage-increase">{getDailyIncrement(data[data.length -2].deceduti, data[data.length -1].deceduti)}&#42;</span>
-                    </span>
+                <header className="panel">
+                  <div className="header-title">
+                    <div className="title-place">
+                      <h3>Italia</h3>
+                      <p> {localisation.header} {parseDate(data[data.length -1].data)}</p>
+                    </div>
+                    <div className="title-details">
+                      <p>Casi totali: {data[data.length -1].totale_casi}</p>
+                      <p>Tamponi totali: {data[data.length -1].tamponi}</p>
+                    </div>
                   </div>
                 </header>
+                <div className="details-continer">
+                  <div className="details-panel">
+                    <div className="details-title">
+                      <h4>{localisation.positives}</h4>
+                    </div>
+                    <div className="details-value">
+                      <p>{data[data.length -1].totale_attualmente_positivi}</p>
+                      <span className="value-difference">{getDailyIncrement(data[data.length -2].totale_attualmente_positivi, data[data.length -1].totale_attualmente_positivi)}</span>
+                    </div>
+                  </div>
+                  <div className="details-panel">
+                    <div className="details-title">
+                      <h4>{localisation.casiTamponi}</h4>
+                    </div>
+                    <div className="details-value">
+                      <p>{(data[data.length -1].totale_casi / data[data.length -1].tamponi * 100).toFixed(2)}%</p>
+                    </div>
+                  </div>
+                  <div className="details-panel">
+                    <div className="details-title">
+                      <h4>{localisation.totalHospitalized}</h4>
+                    </div>
+                    <div className="details-value">
+                      <p>{data[data.length -1].totale_ospedalizzati}</p>
+                      <span className="value-difference">{getDailyIncrement(data[data.length -2].totale_ospedalizzati, data[data.length -1].totale_ospedalizzati)}</span>
+                    </div>
+                  </div>
+                  <div className="details-panel">
+                    <div className="details-title">
+                      <h4>{localisation.recovered}</h4>
+                    </div>
+                    <div className="details-value">
+                      <p>{data[data.length -1].dimessi_guariti}</p>
+                      <span className="value-difference">{getDailyIncrement(data[data.length -2].dimessi_guariti, data[data.length -1].dimessi_guariti)}</span>
+                    </div>
+                  </div>
+                  <div className="details-panel">
+                    <div className="details-title">
+                      <h4>{localisation.deaths}</h4>
+                    </div>
+                    <div className="details-value">
+                      <p>{data[data.length -1].deceduti}</p>
+                      <span className="value-difference">{getDailyIncrement(data[data.length -2].deceduti, data[data.length -1].deceduti)}</span>
+                    </div>
+                  </div>
+                </div>
                 <Evolution
                   data={data}
                   COLORS={COLORS}
