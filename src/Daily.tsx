@@ -17,8 +17,8 @@ const Daily = ({
   localisation,
   selectedDateDaily
 }: DailyProps) => {
-  const selectedDateIndex = Object.values(data).findIndex((obj: any) => obj.date === selectedDateDaily);
-  const selectedData = data.filter((datum: any) => datum.date === selectedDateDaily);
+  const selectedDateIndex = Object.values(data).findIndex((obj: any) => obj.data === selectedDateDaily);
+  const selectedData = data.filter((datum: any) => datum.data === selectedDateDaily);
 
   return (
     <section className="panel situation-daily">
@@ -30,7 +30,7 @@ const Daily = ({
       >
         {
           data.map((data: any, i: number) => (
-            <option key={i} value={data.date}>{parseDate(data.date)}</option>
+            <option key={i} value={data.data}>{data.data}</option>
           ))
         }
       </select>
@@ -40,19 +40,19 @@ const Daily = ({
           <XAxis dataKey="name" stroke="#FFF"/>
           <YAxis stroke="#FFF" />
           <Tooltip contentStyle={{backgroundColor: "#282c34"}}/>
-          <Bar dataKey="positivi" name={localisation.positives} barSize={60} fill={COLORS[0]} />
-          <Bar dataKey="guariti" name={localisation.recovered} barSize={60} fill={COLORS[1]} />
+          <Bar dataKey="totale_attualmente_positivi" name={localisation.positives} barSize={60} fill={COLORS[0]} />
+          <Bar dataKey="dimessi_guariti" name={localisation.recovered} barSize={60} fill={COLORS[1]} />
           <Bar dataKey="deceduti" name={localisation.deceased} barSize={60} fill={COLORS[2]} />
         </BarChart>
       </ResponsiveContainer>
       <ul>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[0]}}/>
-          {localisation.positives}: {data[selectedDateIndex].positivi} ({getDailyIncrement(data[selectedDateIndex - 1].positivi, data[selectedDateIndex].positivi)})&#42;
+          {localisation.positives}: {data[selectedDateIndex].totale_attualmente_positivi} ({getDailyIncrement(data[selectedDateIndex - 1].totale_attualmente_positivi, data[selectedDateIndex].totale_attualmente_positivi)})&#42;
         </li>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[1]}}/>
-          {localisation.recovered}: {data[selectedDateIndex].guariti} ({getDailyIncrement(data[selectedDateIndex - 1].guariti, data[selectedDateIndex].guariti)})&#42;
+          {localisation.recovered}: {data[selectedDateIndex].dimessi_guariti} ({getDailyIncrement(data[selectedDateIndex - 1].dimessi_guariti, data[selectedDateIndex].dimessi_guariti)})&#42;
         </li>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[2]}}/>

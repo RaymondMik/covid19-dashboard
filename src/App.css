@@ -52,11 +52,7 @@ h4 {
 }
 
 .content {
-  position: absolute;
-  top: 5.8em;
-  left: 0;
-  width: 100%;
-  padding: 1em 5em;
+  margin-top: 5em;
 }
 
 .panel {

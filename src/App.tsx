@@ -5,7 +5,7 @@ import Evolution from "./Evolution";
 import Daily from "./Daily";
 import PositiveCases from "./PositiveCases";
 
-import { getHeaderText, getDailyIncrement } from "./utils";
+import { getDailyIncrement } from "./utils";
 
 import * as L from "./localisation.json";
 import icon from "./icons/icon.svg";
@@ -24,18 +24,15 @@ function App() {
 
 
   useEffect(() => {
-    fetch("https://c-scraper-it.firebaseio.com/data.json")
+    // fetch("https://c-scraper-it.firebaseio.com/data.json")
+    fetch("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json")
       .then(response => response.json())
       .then(data => {
-        let dataArray = [];
+        console.log(999, data);
 
-        for (let datum in data) {
-          dataArray.push(data[datum]);
-        }
-
-        setData(dataArray);
-        setSelectedDateDaily(dataArray[dataArray.length - 1].date);
-        setSelectedDatePositive(dataArray[dataArray.length - 1].date);
+        setData(data);
+        setSelectedDateDaily(data[data.length - 1].data);
+        setSelectedDatePositive(data[data.length - 1].data);
         setIsLoading(false);
       });
   }, []);
@@ -64,7 +61,7 @@ function App() {
   );
 
   return (
-    <div className="container-fluid app">
+    <div className="container app">
       <nav>
         <div className="site-title-container">
           <img src={icon} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
@@ -85,50 +82,56 @@ function App() {
           </span>
         </div>
       </nav>
-      <div className="content">
+      <div className="container content">
         {isLoading ? (<div className="loading"></div>) : (
-          <div className="row">
-            <div className="col-md-12 col-lg-8">
-              <header className="panel"><h4>{getHeaderText(currentLanguage, data[data.length -1].header, localisation.header, localisation.months)}</h4>
-                <div className="daily-numbers">
-                  <span style={{color: COLORS[0]}}>
-                    {localisation.positives}: {data[data.length -1].positivi} <span className="percentage-increase">{getDailyIncrement(data[data.length -2].positivi, data[data.length -1].positivi)}&#42;</span>
-                  </span>
-                  <span  style={{color: COLORS[1]}}>
-                    {localisation.recovered}: {data[data.length -1].guariti} <span className="percentage-increase">{getDailyIncrement(data[data.length -2].guariti, data[data.length -1].guariti)}&#42;</span>
-                  </span>
-                  <span  style={{color: COLORS[2]}}>
-                    {localisation.deceased}: {data[data.length -1].deceduti} <span className="percentage-increase">{getDailyIncrement(data[data.length -2].deceduti, data[data.length -1].deceduti)}&#42;</span>
-                  </span>
-                </div>
-              </header>
-              <Evolution 
-                data={data}
-                COLORS={COLORS}
-                localisation={localisation}
-              />
-              { getSourceLink("d-none d-lg-block") }
+          <>
+            <div className="row">
+              <div className="col-lg-12">
+                <header className="panel"><h4>{localisation.header}: {data[data.length -1].data}</h4>
+                  <div className="daily-numbers">
+                    <span style={{color: COLORS[0]}}>
+                      {localisation.positives}: {data[data.length -1].totale_attualmente_positivi} <span className="percentage-increase">{getDailyIncrement(data[data.length -2].totale_attualmente_positivi, data[data.length -1].totale_attualmente_positivi)}&#42;</span>
+                    </span>
+                    <span  style={{color: COLORS[1]}}>
+                      {localisation.recovered}: {data[data.length -1].dimessi_guariti} <span className="percentage-increase">{getDailyIncrement(data[data.length -2].dimessi_guariti, data[data.length -1].dimessi_guariti)}&#42;</span>
+                    </span>
+                    <span  style={{color: COLORS[2]}}>
+                      {localisation.deceased}: {data[data.length -1].deceduti} <span className="percentage-increase">{getDailyIncrement(data[data.length -2].deceduti, data[data.length -1].deceduti)}&#42;</span>
+                    </span>
+                  </div>
+                </header>
+                <Evolution
+                  data={data}
+                  COLORS={COLORS}
+                  localisation={localisation}
+                />
+              </div>
             </div>
-            <div className="col-md-12 col-lg-4">
-              <Daily
-                data={data}
-                selectedDateDaily={selectedDateDaily}
-                handleDailySelect={handleDailySelect}
-                COLORS={COLORS}
-                localisation={localisation}
-              />
-              <PositiveCases
-                data={data}
-                selectedDatePositive={selectedDatePositive}
-                handlePositiveSelect={handlePositiveSelect}
-                COLORS={COLORS}
-                localisation={localisation}
-              />
-              { getSourceLink("d-xs-block d-sm-block d-md-block d-lg-none") }
+            <div className="row">
+              <div className="col-md-12 col-lg-6">
+                <Daily
+                  data={data}
+                  selectedDateDaily={selectedDateDaily}
+                  handleDailySelect={handleDailySelect}
+                  COLORS={COLORS}
+                  localisation={localisation}
+                />
+              </div>
+              <div className="col-md-12 col-lg-6">
+                <PositiveCases
+                  data={data}
+                  selectedDatePositive={selectedDatePositive}
+                  handlePositiveSelect={handlePositiveSelect}
+                  COLORS={COLORS}
+                  localisation={localisation}
+                />
+               
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
+      { getSourceLink() }
     </div>
   );
 }
