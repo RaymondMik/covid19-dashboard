@@ -11,6 +11,7 @@ import { normalizeSearchStr, parseDate } from "./utils";
 
 import * as L from "./localisation.json";
 import icon from "./icons/icon.svg";
+import virus from "./icons/virus.svg";
 
 function App (props: any) {
   const [data, setData] = useState<any>([]);
@@ -61,6 +62,7 @@ function App (props: any) {
             setSelectedDateDaily(filteredData[filteredData.length - 1].data);
             setSelectedDatePositive(filteredData[filteredData.length - 1].data);
             setDataSetTitle(filteredData[filteredData.length - 1].denominazione_regione);
+            setHideForProvince(false);
             setIsLoading(false);
           }  
         } else if (urlPathName[1] === "province") {
@@ -83,6 +85,7 @@ function App (props: any) {
           setSelectedDateDaily(filteredData[filteredData.length - 1].data);
           setSelectedDatePositive(filteredData[filteredData.length - 1].data);
           setDataSetTitle("Italia");
+          setHideForProvince(false);
           setIsLoading(false);
         }     
       })
@@ -151,10 +154,10 @@ function App (props: any) {
     <div className="container app">
       <nav>
         <div className="site-title-container">
-          <img src={icon} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
+          <img src={virus} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
           <h2>{localisation.title}</h2>
         </div>
-        <div>
+        {/* <div>
           <span 
             className={`language-selection ${currentLanguage === "IT" ? "selected" : ""}`}
             onClick={() => handleChangeLang("IT")}
@@ -167,7 +170,7 @@ function App (props: any) {
           >
             EN
           </span>
-        </div>
+        </div> */}
       </nav>
       <div className="container content">
         {isLoading && !hasErrored && (<div className="loading"></div>)}

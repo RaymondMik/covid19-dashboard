@@ -265,6 +265,22 @@ h3.section-title {
     padding: 1em .5em;
   }
 
+  .details-continer {
+    width: 100%;
+    display: block;
+    margin-bottom: 1.7em;
+  }
+
+  .details-panel {
+    display: inline-block;
+    width: 46%;
+    margin-right: 3%;
+    padding: 1% 0;
+    text-align: center;
+    border-radius: 3px;
+    background-color: #2d3748;
+  }
+
   .section-title {
     font-size: 1.1em;
   }
