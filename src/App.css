@@ -71,7 +71,40 @@ h4 {
   justify-content: space-between;
 }
 
-.title-place h3{
+.search-container {
+  margin-top: 1em;
+}
+
+.search-label {
+  width: 25%;
+  margin-right: 1.7em;
+  padding-bottom: .5em;
+  font-size: .9em;
+}
+
+.search-label.disabled {
+  color: #6c757d;
+}
+
+.search-regione, .search-provincia {
+  width: 100%;
+  margin-top: .5em;
+  padding: .4em;
+  border-radius: 5px;
+  color: #f8f9fa !important;
+}
+
+.search-button {
+  color: #009688 !important;
+  border: 1px solid #009688 !important;
+}
+
+h3.section-title {
+  margin-bottom: 1em;
+  font-size: 1.3em;
+}
+
+.title-place h3 {
   font-weight: bold;
 }
 
@@ -203,7 +236,7 @@ h4 {
 	border-radius: 50%;
 	animation: rotate 1s infinite linear;
 	/* left, top and position just for the demo! */
-	margin: 1em auto;
+	margin: 6em auto;
 }
 
 @keyframes rotate {

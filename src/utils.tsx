@@ -8,6 +8,8 @@ export const parseDate = (date: string) => {
    return `${splitDay}/${splitDate[1]}/${splitDate[0]}, ${splitTime}`;
 }
 
+export const normalizeSearchStr = (str: string) => str.split(" ").join("").toLowerCase();
+
 // export const getHeaderText = (currentLanguage: string, lastElementHeader: string, localisedHeader: string, localisedMonths: any) => {
 //    const regex = /gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre/gi;
 
@@ -27,11 +29,11 @@ export const getDailyIncrement = (prevData: number, currData: number) => {
    const difference: number = currData - prevData;
    const percentageDifference: number = (difference / prevData) * 100;
 
-   const incrementString = percentageDifference !== 0 
+   const incrementString = percentageDifference !== 0
       ? `${percentageDifference > 0 ? "+" : ""}${difference} (${percentageDifference.toFixed(0).toString()}%)`
       : "↔"
 
-   return incrementString 
+   return incrementString;
 };
 
 // export const useFetch = (url: string) => {

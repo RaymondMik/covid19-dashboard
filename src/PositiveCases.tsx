@@ -44,14 +44,12 @@ const PositiveCases = (props: any) => {
     } else {
       return props.localisation.isolated;
     }
-  }
-
-  console.log(positiveCaseData);
+  };
  
    return (
      <section className="panel situation-details">
        <h3 className="section-title">{props.localisation.positiveCases}</h3>
-       {<select
+       <select
          className="select-day"
          value={props.selectedDatePositive} 
          onChange={props.handlePositiveSelect}
@@ -61,7 +59,7 @@ const PositiveCases = (props: any) => {
              <option key={i} value={datum.data}>{parseDate(datum.data)}</option>
            ))
          }
-       </select>}
+       </select>
        <ResponsiveContainer width="100%" height={300}>
          <PieChart margin={{ top: 30, right: 35, left: 35, bottom: 35 }}>
            <Pie data={positiveCaseData} dataKey="value" cx="50%" cy="50%" innerRadius={0} outerRadius="100%" fill="#82ca9d">

@@ -20,6 +20,10 @@ const Daily = ({
   const selectedDateIndex = Object.values(data).findIndex((obj: any) => obj.data === selectedDateDaily);
   const selectedData = data.filter((datum: any) => datum.data === selectedDateDaily);
 
+  if (!selectedData.length) {
+    return null;
+  }
+
   return (
     <section className="panel situation-daily">
       <h3 className="section-title">{localisation.daily}</h3>
@@ -48,18 +52,19 @@ const Daily = ({
       <ul>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[0]}}/>
-          {localisation.positives}: {data[selectedDateIndex].totale_attualmente_positivi} ({getDailyIncrement(data[selectedDateIndex - 1].totale_attualmente_positivi, data[selectedDateIndex].totale_attualmente_positivi)})&#42;
+          {localisation.positives}: {data[selectedDateIndex].totale_attualmente_positivi} [{getDailyIncrement(data[selectedDateIndex - 1].totale_attualmente_positivi, data[selectedDateIndex].totale_attualmente_positivi)}]&#42;
         </li>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[1]}}/>
-          {localisation.recovered}: {data[selectedDateIndex].dimessi_guariti} ({getDailyIncrement(data[selectedDateIndex - 1].dimessi_guariti, data[selectedDateIndex].dimessi_guariti)})&#42;
+          {localisation.recovered}: {data[selectedDateIndex].dimessi_guariti} [{getDailyIncrement(data[selectedDateIndex - 1].dimessi_guariti, data[selectedDateIndex].dimessi_guariti)}]&#42;
         </li>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[2]}}/>
-          {localisation.deaths}: {data[selectedDateIndex].deceduti} ({getDailyIncrement(data[selectedDateIndex - 1].deceduti, data[selectedDateIndex].deceduti)})&#42;
+          {localisation.deaths}: {data[selectedDateIndex].deceduti} [{getDailyIncrement(data[selectedDateIndex - 1].deceduti, data[selectedDateIndex].deceduti)}]&#42;
         </li>
       </ul>
-  </section>)
- };
+    </section>
+  );
+};
 
  export default Daily;

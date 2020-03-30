@@ -7,10 +7,13 @@ const Evolution = (props: any) => {
     return datum;
   });
 
+  console.log(333, )
+
   return (
    <section className="panel situation-evolution">
      <h3 className="section-title">{props.localisation.evolution}</h3>
-     <ResponsiveContainer>
+     {!props.hideForProvince ? (
+      <ResponsiveContainer>
        <LineChart data={mappedData}
          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
@@ -22,11 +25,28 @@ const Evolution = (props: any) => {
           iconType={"plainline"}
           iconSize={12}
          />
-         <Line type="monotone" dataKey="totale_attualmente_positivi" dot={false} strokeWidth={4.5} name={props.data.data} stroke={props.COLORS[0]} />
-         <Line type="monotone" dataKey="dimessi_guariti" dot={false} strokeWidth={4.5} name={props.data.data} stroke={props.COLORS[1]} />
-         <Line type="monotone" dataKey="deceduti" dot={false} strokeWidth={4.5} name={props.data.data} stroke={props.COLORS[2]} />
+        <Line type="monotone" dataKey="totale_attualmente_positivi" dot={false} strokeWidth={4.5} name={props.data.data} stroke={props.COLORS[0]} />
+        <Line type="monotone" dataKey="dimessi_guariti" dot={false} strokeWidth={4.5} name={props.data.data} stroke={props.COLORS[1]} />
+        <Line type="monotone" dataKey="deceduti" dot={false} strokeWidth={4.5} name={props.data.data} stroke={props.COLORS[2]} />
        </LineChart>
      </ResponsiveContainer>
+     ) : (
+      <ResponsiveContainer>
+        <LineChart data={mappedData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" stroke="#FFF"/>
+          <YAxis stroke="#FFF" />
+          <Tooltip contentStyle={{backgroundColor: "#282c34"}}/>
+          <Legend 
+          iconType={"plainline"}
+          iconSize={12}
+          />
+          <Line type="monotone" dataKey="totale_casi" dot={false} strokeWidth={4.5} name={props.data.data} stroke={props.COLORS[1]} />
+        </LineChart>
+      </ResponsiveContainer>
+     )}
    </section>
  )};
 

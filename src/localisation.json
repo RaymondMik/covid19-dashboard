@@ -16,8 +16,8 @@
       "therapy": "Ricoverati in terapia intensiva",
       "increment": "* incremento percentuale rispetto la rilevamento precedente.",
       "disclaimer": {
-         "0": "I dati sono estratti dal sito del \n",
-         "1": "Ministero della Salute",
+         "0": "I dati sono estratti da \n",
+         "1": "pcm-dpc/COVID-19",
          "2": "\ne sono qui riportati a titolo puramente informativo e senza scopo di lucro. Si invita a consultare sempre le fonti ufficiali per la verifica dei dati, e si declina qualsiasi responsabilità relativamente ad eventuali errori presenti su questo sito.",
          "3": "Data API:\n"
       }
@@ -40,7 +40,7 @@
       "increment": "* percentage increase from the previous measurement.",
       "disclaimer": {
          "0":"Data are extracted from the website of the \n",
-         "1": "Italian Ministry of Health",
+         "1": "pcm-dpc/COVID-19",
          "2": "\nand are shown here for informative purposes only. We recommend to always check the official source to verify the data, and we don't take any responsibility for any wrong data that might be available on this website.",
          "3": "Data API:\n"
       },

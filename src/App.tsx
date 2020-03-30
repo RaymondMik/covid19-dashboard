@@ -1,44 +1,131 @@
 import React, { useState, useEffect } from "react";
-import './App.css';
-import { parseDate } from "./utils";
 
+import Header from "./Header";
+import Tiles from "./Tiles";
 import Evolution from "./Evolution";
 import Daily from "./Daily";
 import PositiveCases from "./PositiveCases";
 
-import { getDailyIncrement } from "./utils";
+import './App.css';
+import { normalizeSearchStr, parseDate } from "./utils";
 
 import * as L from "./localisation.json";
 import icon from "./icons/icon.svg";
 
-function App() {
-  const [data, setData] = useState<any>({});
+function App (props: any) {
+  const [data, setData] = useState<any>([]);
+  const [dataSetTitle, setDataSetTitle] = useState<string>("");
+  const [searchRegioni, setSearchRegioni] = useState<string>("");
+  const [searchProvince, setSearchProvince] = useState<string>("");
   const [selectedDateDaily, setSelectedDateDaily] = useState<string>("");
   const [selectedDatePositive, setSelectedDatePositive] = useState<string>("");
+  const [hideForProvince, setHideForProvince] = useState<boolean>(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>("IT");
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [hasErrored, setHasErrored] = useState<boolean>(false);
+  const [noData, setNoData] = useState<boolean>(false);
 
-  // const [data, isLoading] = useFetch("https://c-scraper-it.firebaseio.com/data.json");
-
-  const COLORS = ["#1BC98E", "#f8f9fa", "#E64759"];
+  const COLORS = ["#009688", "#f8f9fa", "#E64759"];
+  const API_URL = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita";
 
   useEffect(() => {
-    // fetch("https://c-scraper-it.firebaseio.com/data.json")
-    fetch("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json")
-      .then(response => response.json())
+    let fetchData: string = "";
+    const urlPathName = props.location.pathname.split("/");
+
+    if (urlPathName[1] === "regioni" || urlPathName[1] === "province") {
+      fetchData = urlPathName[1];
+    } else {
+      fetchData = "andamento-nazionale";
+    }
+
+    fetch(`${API_URL}-${fetchData}.json`)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        return response.json();
+      })
       .then(data => {
+        let filteredData: any = data;
 
-        console.log(999, data);
+        if (urlPathName[1] === "regioni") {
+          filteredData = data.filter((datum: any) => normalizeSearchStr(datum.denominazione_regione) === urlPathName[2]);
 
-        setData(data);
-        setSelectedDateDaily(data[data.length - 1].data);
-        setSelectedDatePositive(data[data.length - 1].data);
+          if (!filteredData.length) {
+            setNoData(true);
+            setIsLoading(false);
+          } else {
+            setData(filteredData);
+            setSelectedDateDaily(filteredData[filteredData.length - 1].data);
+            setSelectedDatePositive(filteredData[filteredData.length - 1].data);
+            setDataSetTitle(filteredData[filteredData.length - 1].denominazione_regione);
+            setIsLoading(false);
+          }  
+        } else if (urlPathName[1] === "province") {
+          filteredData = data.filter((datum: any) => normalizeSearchStr(datum.denominazione_provincia) === urlPathName[2]);
+          console.log(999, filteredData);
+
+          if (!filteredData.length) {
+            setNoData(true);
+            setIsLoading(false);
+          } else {
+            setData(filteredData);
+            setSelectedDateDaily(filteredData[filteredData.length - 1].data);
+            setSelectedDatePositive(filteredData[filteredData.length - 1].data);
+            setDataSetTitle(filteredData[filteredData.length - 1].denominazione_provincia);
+            setHideForProvince(true);
+            setIsLoading(false);
+          }
+        } else {
+          setData(filteredData);
+          setSelectedDateDaily(filteredData[filteredData.length - 1].data);
+          setSelectedDatePositive(filteredData[filteredData.length - 1].data);
+          setDataSetTitle("Italia");
+          setIsLoading(false);
+        }     
+      })
+      .catch((e) => {
+        console.error(e);
+        setHasErrored(true);
         setIsLoading(false);
       });
-  }, []);
+  }, [props.location.pathname]);
+
+  const handleSearchRegion = (e: any) => {
+    if (searchProvince.length > 0) {
+      setSearchProvince("");
+    }
+
+    setSearchRegioni(e.target.value);
+  }
+
+  const handleSearchProvince = (e: any) => {
+    if (searchRegioni.length > 0) {
+      setSearchRegioni("");
+    }
+
+    setSearchProvince(e.target.value);
+  }
+
+  const handleClickSearch = (e: any) => {
+    e.preventDefault();
+    if (searchProvince.length > 0) {
+      props.history.push(`/province/${normalizeSearchStr(searchProvince)}`);
+      // navigate to type province with key
+    } else if (searchRegioni.length > 0) {
+      // navigate to type regioni with key
+      props.history.push(`/regioni/${normalizeSearchStr(searchRegioni)}`);
+    } else {
+      return;
+    }
+  }
 
   const handleDailySelect = (e: any) => setSelectedDateDaily(e.target.value);
+
   const handlePositiveSelect = (e: any) => setSelectedDatePositive(e.target.value);
+
   const handleChangeLang = (lang: string) => setCurrentLanguage(lang)
 
   //@ts-ignore
@@ -50,13 +137,13 @@ function App() {
       {localisation.disclaimer[0]}  
       <a
         className="link"
-        href="http://www.salute.gov.it/portale/nuovocoronavirus/dettaglioContenutiNuovoCoronavirus.jsp?lingua=italiano&id=5351&area=nuovoCoronavirus&menu=vuoto"
+        href="https://github.com/pcm-dpc/COVID-19"
         target="_blank"
         rel="noopener noreferrer"
       >
         {localisation.disclaimer[1]}  
       </a>
-      {localisation.disclaimer[2]}<br />{localisation.disclaimer[3]}<code>GET https://c-scraper-it.firebaseio.com/data.json</code>
+      {localisation.disclaimer[2]}<br />
     </p>
   );
 
@@ -83,100 +170,105 @@ function App() {
         </div>
       </nav>
       <div className="container content">
-        {isLoading ? (<div className="loading"></div>) : (
+        {isLoading && !hasErrored && (<div className="loading"></div>)}
+        {!isLoading && hasErrored && (<h2>Error</h2>)}
+        {!isLoading && !hasErrored && noData && (<h2>No Data muli!</h2>)}
+        {!isLoading && !hasErrored && !noData && data.length > 0 && (
           <>
             <div className="row">
               <div className="col-lg-12">
                 <header className="panel">
                   <div className="header-title">
                     <div className="title-place">
-                      <h3>Italia</h3>
-                      <p> {localisation.header} {parseDate(data[data.length -1].data)}</p>
+                        <h3>{dataSetTitle}</h3>
+                        <p>{localisation.header} {parseDate(data[data.length - 1].data)}</p>
                     </div>
                     <div className="title-details">
-                      <p>Casi totali: {data[data.length -1].totale_casi}</p>
-                      <p>Tamponi totali: {data[data.length -1].tamponi}</p>
+                        <p>Casi totali: {data[data.length - 1].totale_casi}</p>
+                        {!hideForProvince ? (
+                          <p>Tamponi totali: {data[data.length - 1].tamponi}</p>
+                        ) : (
+                          <small>Per le province sono disponibili solo i casi totali</small>
+                        )}
                     </div>
+                  </div>
+                  <div className="search-container">
+                    <form onSubmit={handleClickSearch}>
+                      <label 
+                        className={`search-label  ${searchProvince? "disabled" : ""}`}
+                      >
+                        Vedi dati per regione
+                          <input 
+                            type="text" 
+                            name="search-regione" 
+                            className="form-control search-regione" 
+                            placeholder="Inserisci nome regione" 
+                            value={searchRegioni}
+                            onChange={handleSearchRegion}
+                          />
+                      </label>
+                      <label 
+                        className={`search-label  ${searchRegioni ? "disabled" : ""}`}
+                      >
+                        Vedi dati per provincia
+                          <input 
+                            type="text" 
+                            name="search-provincia" 
+                            className="form-control search-provincia" 
+                            placeholder="Inserisci nome provincia"
+                            value={searchProvince}
+                            onChange={handleSearchProvince}
+                          />
+                      </label>
+                      <button 
+                        type="submit"
+                        className="btn btn-success search-button"
+                      >
+                        {`Cerca ${searchRegioni ? "per regione" : searchProvince ? "per provincia" : ""}`}
+                      </button>
+                    </form>
                   </div>
                 </header>
-                <div className="details-continer">
-                  <div className="details-panel">
-                    <div className="details-title">
-                      <h4>{localisation.positives}</h4>
-                    </div>
-                    <div className="details-value">
-                      <p>{data[data.length -1].totale_attualmente_positivi}</p>
-                      <span className="value-difference">{getDailyIncrement(data[data.length -2].totale_attualmente_positivi, data[data.length -1].totale_attualmente_positivi)}</span>
-                    </div>
-                  </div>
-                  <div className="details-panel">
-                    <div className="details-title">
-                      <h4>{localisation.casiTamponi}</h4>
-                    </div>
-                    <div className="details-value">
-                      <p>{(data[data.length -1].totale_casi / data[data.length -1].tamponi * 100).toFixed(2)}%</p>
-                    </div>
-                  </div>
-                  <div className="details-panel">
-                    <div className="details-title">
-                      <h4>{localisation.totalHospitalized}</h4>
-                    </div>
-                    <div className="details-value">
-                      <p>{data[data.length -1].totale_ospedalizzati}</p>
-                      <span className="value-difference">{getDailyIncrement(data[data.length -2].totale_ospedalizzati, data[data.length -1].totale_ospedalizzati)}</span>
-                    </div>
-                  </div>
-                  <div className="details-panel">
-                    <div className="details-title">
-                      <h4>{localisation.recovered}</h4>
-                    </div>
-                    <div className="details-value">
-                      <p>{data[data.length -1].dimessi_guariti}</p>
-                      <span className="value-difference">{getDailyIncrement(data[data.length -2].dimessi_guariti, data[data.length -1].dimessi_guariti)}</span>
-                    </div>
-                  </div>
-                  <div className="details-panel">
-                    <div className="details-title">
-                      <h4>{localisation.deaths}</h4>
-                    </div>
-                    <div className="details-value">
-                      <p>{data[data.length -1].deceduti}</p>
-                      <span className="value-difference">{getDailyIncrement(data[data.length -2].deceduti, data[data.length -1].deceduti)}</span>
-                    </div>
-                  </div>
-                </div>
+                {!hideForProvince && (
+                  <Tiles 
+                    data={data}
+                    localisation={localisation}
+                  />
+                )}
                 <Evolution
                   data={data}
                   COLORS={COLORS}
                   localisation={localisation}
+                  hideForProvince={hideForProvince}
                 />
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-12 col-lg-6">
-                <Daily
-                  data={data}
-                  selectedDateDaily={selectedDateDaily}
-                  handleDailySelect={handleDailySelect}
-                  COLORS={COLORS}
-                  localisation={localisation}
-                />
+            {!hideForProvince && (
+              <div className="row">
+                <div className="col-md-12 col-lg-6">
+                  <Daily
+                    data={data}
+                    selectedDateDaily={selectedDateDaily}
+                    handleDailySelect={handleDailySelect}
+                    COLORS={COLORS}
+                    localisation={localisation}
+                  />
+                </div>
+                <div className="col-md-12 col-lg-6">
+                  <PositiveCases
+                    data={data}
+                    selectedDatePositive={selectedDatePositive}
+                    handlePositiveSelect={handlePositiveSelect}
+                    COLORS={COLORS}
+                    localisation={localisation}
+                  />
+                </div>
               </div>
-              <div className="col-md-12 col-lg-6">
-                <PositiveCases
-                  data={data}
-                  selectedDatePositive={selectedDatePositive}
-                  handlePositiveSelect={handlePositiveSelect}
-                  COLORS={COLORS}
-                  localisation={localisation}
-                />
-               
-              </div>
-            </div>
+            )}
+            { getSourceLink() }
           </>
         )}
       </div>
-      { getSourceLink() }
     </div>
   );
 }
