@@ -48,11 +48,13 @@ function App (props: any) {
 
         return response.json();
       })
-      .then(data => {
-        let filteredData: any = data;
+      .then(res => {
+        let filteredData: any = res;
+
+        console.log(898, props);
 
         if (urlPathName[1] === "regioni") {
-          filteredData = data.filter((datum: any) => normalizeSearchStr(datum.denominazione_regione) === urlPathName[2]);
+          filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_regione) === urlPathName[2]);
 
           if (!filteredData.length) {
             setNoData(true);
@@ -63,11 +65,11 @@ function App (props: any) {
             setSelectedDatePositive(filteredData[filteredData.length - 1].data);
             setDataSetTitle(filteredData[filteredData.length - 1].denominazione_regione);
             setHideForProvince(false);
+            setNoData(false);
             setIsLoading(false);
           }  
         } else if (urlPathName[1] === "province") {
-          filteredData = data.filter((datum: any) => normalizeSearchStr(datum.denominazione_provincia) === urlPathName[2]);
-          console.log(999, filteredData);
+          filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_provincia) === urlPathName[2]);
 
           if (!filteredData.length) {
             setNoData(true);
@@ -78,6 +80,7 @@ function App (props: any) {
             setSelectedDatePositive(filteredData[filteredData.length - 1].data);
             setDataSetTitle(filteredData[filteredData.length - 1].denominazione_provincia);
             setHideForProvince(true);
+            setNoData(false);
             setIsLoading(false);
           }
         } else {
@@ -86,6 +89,7 @@ function App (props: any) {
           setSelectedDatePositive(filteredData[filteredData.length - 1].data);
           setDataSetTitle("Italia");
           setHideForProvince(false);
+          setNoData(false);
           setIsLoading(false);
         }     
       })
@@ -94,7 +98,7 @@ function App (props: any) {
         setHasErrored(true);
         setIsLoading(false);
       });
-  }, [props.location.pathname]);
+  }, [props.location.pathname, props.history]);
 
   const handleSearchRegion = (e: any) => {
     if (searchProvince.length > 0) {
@@ -175,8 +179,8 @@ function App (props: any) {
       <div className="container content">
         {isLoading && !hasErrored && (<div className="loading"></div>)}
         {!isLoading && hasErrored && (<h2>Error</h2>)}
-        {!isLoading && !hasErrored && noData && (<h2>No Data muli!</h2>)}
-        {!isLoading && !hasErrored && !noData && data.length > 0 && (
+        {!isLoading && noData && !data.length && (<h2>404 not found</h2>)}
+        {!isLoading && !hasErrored && data.length > 0 && (
           <>
             <div className="row">
               <div className="col-lg-12">
@@ -230,6 +234,7 @@ function App (props: any) {
                         {`Cerca ${searchRegioni ? "per regione" : searchProvince ? "per provincia" : ""}`}
                       </button>
                     </form>
+                        {!isLoading && !hasErrored && noData && (<span>Dati non disponibili</span>)}
                   </div>
                 </header>
                 {!hideForProvince && (

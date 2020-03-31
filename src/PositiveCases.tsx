@@ -25,7 +25,7 @@ const PositiveCases = (props: any) => {
 
     Object.entries(selectedData).forEach(([key, value]) => {
       // @ts-ignore
-      const percentage: string = `${(value / selectedData.totale_attualmente_positivi * 100).toFixed(2)}%`;
+      const percentage: string = `${(value / selectedData.totale_positivi * 100).toFixed(2)}%`;
       if (keys.includes(key)) {
         mappedPositiveData[keys.indexOf(key)] = { name: formatKey(key), value, percentage };
       }

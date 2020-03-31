@@ -40,11 +40,11 @@ const Daily = ({
       </select>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={selectedData} barGap="5%">
-          <CartesianGrid />
+          <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" stroke="#FFF"/>
           <YAxis stroke="#FFF" />
           <Tooltip contentStyle={{backgroundColor: "#282c34"}}/>
-          <Bar dataKey="totale_attualmente_positivi" name={localisation.positives} barSize={60} fill={COLORS[0]} />
+          <Bar dataKey="totale_positivi" name={localisation.positives} barSize={60} fill={COLORS[0]} />
           <Bar dataKey="dimessi_guariti" name={localisation.recovered} barSize={60} fill={COLORS[1]} />
           <Bar dataKey="deceduti" name={localisation.deaths} barSize={60} fill={COLORS[2]} />
         </BarChart>
@@ -52,7 +52,7 @@ const Daily = ({
       <ul>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[0]}}/>
-          {localisation.positives}: {data[selectedDateIndex].totale_attualmente_positivi} [{getDailyIncrement(data[selectedDateIndex - 1].totale_attualmente_positivi, data[selectedDateIndex].totale_attualmente_positivi)}]&#42;
+          {localisation.positives}: {data[selectedDateIndex].totale_positivi} [{getDailyIncrement(data[selectedDateIndex - 1].totale_positivi, data[selectedDateIndex].totale_positivi)}]&#42;
         </li>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[1]}}/>

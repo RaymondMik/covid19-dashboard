@@ -16,8 +16,8 @@ const Tiles = ({
        <h4>{localisation.positives}</h4>
      </div>
      <div className="details-value">
-       <p>{data[data.length -1].totale_attualmente_positivi}</p>
-       <span className="value-difference">{getDailyIncrement(data[data.length -2].totale_attualmente_positivi, data[data.length -1].totale_attualmente_positivi)}</span>
+       <p>{data[data.length -1].totale_positivi}</p>
+       <span className="value-difference">{getDailyIncrement(data[data.length -2].totale_positivi, data[data.length -1].totale_positivi)}</span>
      </div>
    </div>
    <div className="details-panel">
