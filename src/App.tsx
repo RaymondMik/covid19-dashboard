@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
 
-import Header from "./Header";
-import Tiles from "./Tiles";
-import Evolution from "./Evolution";
-import Daily from "./Daily";
-import PositiveCases from "./PositiveCases";
+import Dashboard from "./dashboard";
 
 import './App.css';
-import { normalizeSearchStr, parseDate } from "./utils";
+import { normalizeSearchStr } from "./utils";
 
 import * as L from "./localisation.json";
-import icon from "./icons/icon.svg";
 import virus from "./icons/virus.svg";
 
 function App (props: any) {
@@ -54,7 +56,9 @@ function App (props: any) {
         console.log(898, props);
 
         if (urlPathName[1] === "regioni") {
-          filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_regione) === urlPathName[2]);
+          if (urlPathName[2]) {
+            filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_regione) === urlPathName[2]);
+          }
 
           if (!filteredData.length) {
             setNoData(true);
@@ -69,7 +73,9 @@ function App (props: any) {
             setIsLoading(false);
           }  
         } else if (urlPathName[1] === "province") {
-          filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_provincia) === urlPathName[2]);
+          if (urlPathName[2]) {
+            filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_provincia) === urlPathName[2]);
+          }
 
           if (!filteredData.length) {
             setNoData(true);
@@ -155,12 +161,21 @@ function App (props: any) {
   );
 
   return (
-    <div className="container app">
-      <nav>
-        <div className="site-title-container">
+    <div className="app">
+      <nav className="sitenav">
+        <Link to="/" className="site-title-container">
           <img src={virus} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
           <h2>{localisation.title}</h2>
-        </div>
+        </Link>
+        <ul>
+          <li>
+            <Link to="/regioni">Regioni</Link>
+          </li>
+          <li>
+            <Link to="/province">Province</Link>
+          </li>
+        </ul>
+      </nav>
         {/* <div>
           <span 
             className={`language-selection ${currentLanguage === "IT" ? "selected" : ""}`}
@@ -175,106 +190,49 @@ function App (props: any) {
             EN
           </span>
         </div> */}
-      </nav>
-      <div className="container content">
+      
+      <div className="content">
         {isLoading && !hasErrored && (<div className="loading"></div>)}
         {!isLoading && hasErrored && (<h2>Error</h2>)}
         {!isLoading && noData && !data.length && (<h2>404 not found</h2>)}
         {!isLoading && !hasErrored && data.length > 0 && (
-          <>
-            <div className="row">
-              <div className="col-lg-12">
-                <header className="panel">
-                  <div className="header-title">
-                    <div className="title-place">
-                        <h3>{dataSetTitle}</h3>
-                        <p>{localisation.header} {parseDate(data[data.length - 1].data)}</p>
-                    </div>
-                    <div className="title-details">
-                        <p>Casi totali: {data[data.length - 1].totale_casi}</p>
-                        {!hideForProvince ? (
-                          <p>Tamponi totali: {data[data.length - 1].tamponi}</p>
-                        ) : (
-                          <small>Per le province sono disponibili solo i casi totali</small>
-                        )}
-                    </div>
-                  </div>
-                  <div className="search-container">
-                    <form onSubmit={handleClickSearch}>
-                      <label 
-                        className={`search-label  ${searchProvince? "disabled" : ""}`}
-                      >
-                        Vedi dati per regione
-                          <input 
-                            type="text" 
-                            name="search-regione" 
-                            className="form-control search-regione" 
-                            placeholder="Inserisci nome regione" 
-                            value={searchRegioni}
-                            onChange={handleSearchRegion}
-                          />
-                      </label>
-                      <label 
-                        className={`search-label  ${searchRegioni ? "disabled" : ""}`}
-                      >
-                        Vedi dati per provincia
-                          <input 
-                            type="text" 
-                            name="search-provincia" 
-                            className="form-control search-provincia" 
-                            placeholder="Inserisci nome provincia"
-                            value={searchProvince}
-                            onChange={handleSearchProvince}
-                          />
-                      </label>
-                      <button 
-                        type="submit"
-                        className="btn btn-success search-button"
-                      >
-                        {`Cerca ${searchRegioni ? "per regione" : searchProvince ? "per provincia" : ""}`}
-                      </button>
-                    </form>
-                        {!isLoading && !hasErrored && noData && (<span>Dati non disponibili</span>)}
-                  </div>
-                </header>
-                {!hideForProvince && (
-                  <Tiles 
-                    data={data}
-                    localisation={localisation}
-                  />
-                )}
-                <Evolution
-                  data={data}
-                  COLORS={COLORS}
-                  localisation={localisation}
-                  hideForProvince={hideForProvince}
-                />
-              </div>
-            </div>
-            {!hideForProvince && (
+          <Switch>
+            <Route exact path="/regioni">
               <div className="row">
-                <div className="col-md-12 col-lg-6">
-                  <Daily
-                    data={data}
-                    selectedDateDaily={selectedDateDaily}
-                    handleDailySelect={handleDailySelect}
-                    COLORS={COLORS}
-                    localisation={localisation}
-                  />
-                </div>
-                <div className="col-md-12 col-lg-6">
-                  <PositiveCases
-                    data={data}
-                    selectedDatePositive={selectedDatePositive}
-                    handlePositiveSelect={handlePositiveSelect}
-                    COLORS={COLORS}
-                    localisation={localisation}
-                  />
+                <div className="col-lg-12">
+                  <div>REGIONI</div>
                 </div>
               </div>
-            )}
-            { getSourceLink() }
-          </>
+            </Route>
+            <Route exact path="/province">
+              <div className="row">
+                <div className="col-lg-12">
+                  <div>PROVINCE</div>
+                </div>
+              </div>
+            </Route>
+            <Route path={["/", "/province/:provinceId", "/regioni/:regioneId"]}>
+              <Dashboard
+                COLORS={COLORS}
+                data={data}
+                dataSetTitle={dataSetTitle}
+                hideForProvince={hideForProvince}
+                handleClickSearch={handleClickSearch}
+                handleSearchRegion={handleSearchRegion}
+                handleSearchProvince={handleSearchProvince}
+                hasErrored={hasErrored}
+                isLoading={isLoading}
+                localisation={localisation}
+                noData={noData}
+                searchRegioni={searchRegioni}
+                searchProvince={searchProvince}
+                selectedDateDaily={selectedDateDaily}
+                selectedDatePositive={selectedDatePositive}
+                handleDailySelect={handleDailySelect}
+                handlePositiveSelect={handlePositiveSelect}
+              />
+            </Route>
+          </Switch>
         )}
       </div>
     </div>

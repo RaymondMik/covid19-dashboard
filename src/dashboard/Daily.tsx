@@ -1,6 +1,6 @@
 import React from "react";
 import { ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, BarChart, Bar } from 'recharts';
-import { parseDate, getDailyIncrement } from "./utils";
+import { parseDate, getDailyIncrement } from "../utils";
 
 interface DailyProps {
   COLORS: string[];

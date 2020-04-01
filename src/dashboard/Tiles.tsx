@@ -1,5 +1,5 @@
 import React  from "react";
-import { getDailyIncrement } from "./utils";
+import { getDailyIncrement } from "../utils";
 
 interface TilesProps {
    data: any

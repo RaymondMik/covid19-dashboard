@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { parseDate } from "./utils";
+import { parseDate } from "../utils";
 
 const PositiveCases = (props: any) => {
   const [positiveCaseData, setPositiveCaseData] = useState<Array<any>>([]);
