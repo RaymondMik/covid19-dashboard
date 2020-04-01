@@ -10,7 +10,7 @@ const Tiles = ({
    data,
    localisation
 }: TilesProps) => (
-   <div className="details-continer">
+  <div className="details-continer">
    <div className="details-panel">
      <div className="details-title">
        <h4>{localisation.positives}</h4>

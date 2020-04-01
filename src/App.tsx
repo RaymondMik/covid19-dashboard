@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 
 import Dashboard from "./dashboard";
+import Regioni from "./Regioni";
+import Province from "./Province";
 
 import './App.css';
 import { normalizeSearchStr } from "./utils";
@@ -53,7 +55,7 @@ function App (props: any) {
       .then(res => {
         let filteredData: any = res;
 
-        console.log(898, props);
+        console.log(898, res);
 
         if (urlPathName[1] === "regioni") {
           if (urlPathName[2]) {
@@ -144,22 +146,6 @@ function App (props: any) {
   //@ts-ignore
   const localisation: any = L.default[currentLanguage];
 
-  const getSourceLink = (cssClass?: string) => (
-    <p className={`source-link ${cssClass}`}>
-      <p className="explain-increment">{localisation.increment}</p>
-      {localisation.disclaimer[0]}  
-      <a
-        className="link"
-        href="https://github.com/pcm-dpc/COVID-19"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {localisation.disclaimer[1]}  
-      </a>
-      {localisation.disclaimer[2]}<br />
-    </p>
-  );
-
   return (
     <div className="app">
       <nav className="sitenav">
@@ -198,18 +184,13 @@ function App (props: any) {
         {!isLoading && !hasErrored && data.length > 0 && (
           <Switch>
             <Route exact path="/regioni">
-              <div className="row">
-                <div className="col-lg-12">
-                  <div>REGIONI</div>
-                </div>
-              </div>
+              <Regioni
+                data={data}
+                localisation={localisation}
+              />
             </Route>
             <Route exact path="/province">
-              <div className="row">
-                <div className="col-lg-12">
-                  <div>PROVINCE</div>
-                </div>
-              </div>
+              <Province />
             </Route>
             <Route path={["/", "/province/:provinceId", "/regioni/:regioneId"]}>
               <Dashboard

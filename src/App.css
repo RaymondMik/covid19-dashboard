@@ -148,7 +148,8 @@ h3.section-title {
 
 .details-panel {
   display: inline-block;
-  width: 19%;
+  width: 30%;
+  margin: 1%;
   padding: 1% 0;
   text-align: center;
   border-radius: 3px;
@@ -158,6 +159,15 @@ h3.section-title {
 .details-title {
   font-size: .8em;
   border-bottom: 1px solid #1a202c;
+}
+
+.details-title > h4 {
+  color: #FFF;
+  transition: 0.3s;
+}
+
+.details-title > h4:hover {
+  color: #009688;
 }
 
 .details-value {
