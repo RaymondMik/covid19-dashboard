@@ -18,24 +18,27 @@ const Regioni = ({data}: RegioniProps) => {
    });
 
    return (
-      <>
+      <div className="content">
          <h4>REGIONI</h4>
          <div className="row">
             {Object.keys(regioniAggregated).map((regione: string, i: number) => (
-               <div className="details-panel" key={i}>
-                  <Link to={`/regioni/${regione.toLowerCase().split(" ").join("")}`} className="details-title">
-                     <h4>{regione}</h4>
-                  </Link>
-                  <div className="details-value">
-                     <small>Totale casi: </small>
-                     <p>{regioniAggregated[regione][regioniAggregated[regione].length - 1].totale_casi}</p>
+               <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
+                  <div className="details-panel">
+                     <Link to={`/regioni/${regione.toLowerCase().split(" ").join("")}`}> 
+                        <div className="details-title">
+                           <h4>{regione}</h4>
+                        </div>
+                     </Link>
+                     <div className="details-value">
+                        <small>Totale casi: </small>
+                        <p>{regioniAggregated[regione][regioniAggregated[regione].length - 1].totale_casi}</p>
+                     </div>
                   </div>
                </div>
             ))}
          </div>
-      </>
+      </div>
    );
-   
 };
 
 export default Regioni;

@@ -177,7 +177,7 @@ function App (props: any) {
           </span>
         </div> */}
       
-      <div className="content">
+      <div className="container content">
         {isLoading && !hasErrored && (<div className="loading"></div>)}
         {!isLoading && hasErrored && (<h2>Error</h2>)}
         {!isLoading && noData && !data.length && (<h2>404 not found</h2>)}

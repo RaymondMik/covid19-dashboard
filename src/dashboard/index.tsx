@@ -48,67 +48,73 @@ const Dashboard = ({
    handlePositiveSelect
 }: DashboardProps) => {
    return (
-      <div className="row">
-         <div className="col-lg-12">
-            <header className="panel">
-               <div className="header-title">
-                  <div className="title-place">
-                     <h3>{dataSetTitle}</h3>
-                     <p>{localisation.header} {parseDate(data[data.length - 1].data)}</p>
+      <>
+         <div className="row">
+            <div className="col-sm-12">
+               <header className="panel">
+                  <div className="header-title">
+                     <div className="title-place">
+                        <h3>{dataSetTitle}</h3>
+                        <p>{localisation.header} {parseDate(data[data.length - 1].data)}</p>
+                     </div>
+                     <div className="title-details">
+                        <p>Casi totali: {data[data.length - 1].totale_casi}</p>
+                        {!hideForProvince ? (
+                           <p>Tamponi totali: {data[data.length - 1].tamponi}</p>
+                        ) : (
+                           <small>Per le province sono disponibili solo i casi totali</small>
+                        )}
+                     </div>
                   </div>
-                  <div className="title-details">
-                     <p>Casi totali: {data[data.length - 1].totale_casi}</p>
-                     {!hideForProvince ? (
-                        <p>Tamponi totali: {data[data.length - 1].tamponi}</p>
-                     ) : (
-                        <small>Per le province sono disponibili solo i casi totali</small>
-                     )}
+                  <div className="search-container">
+                     <form onSubmit={handleClickSearch}>
+                     <label 
+                        className={`search-label  ${searchProvince ? "disabled" : ""}`}
+                     >
+                        Vedi dati per regione
+                           <input 
+                           type="text" 
+                           name="search-regione" 
+                           className="form-control search-regione" 
+                           placeholder="Inserisci nome regione" 
+                           value={searchRegioni}
+                           onChange={handleSearchRegion}
+                           />
+                     </label>
+                     <label 
+                        className={`search-label  ${searchRegioni ? "disabled" : ""}`}
+                     >
+                        Vedi dati per provincia
+                           <input 
+                           type="text" 
+                           name="search-provincia" 
+                           className="form-control search-provincia" 
+                           placeholder="Inserisci nome provincia"
+                           value={searchProvince}
+                           onChange={handleSearchProvince}
+                           />
+                     </label>
+                     <button 
+                        type="submit"
+                        className="btn btn-success search-button"
+                     >
+                        {`Cerca ${searchRegioni ? "per regione" : searchProvince ? "per provincia" : ""}`}
+                     </button>
+                     </form>
+                        {!isLoading && !hasErrored && noData && (<span>Dati non disponibili</span>)}
                   </div>
-               </div>
-               <div className="search-container">
-                  <form onSubmit={handleClickSearch}>
-                  <label 
-                     className={`search-label  ${searchProvince ? "disabled" : ""}`}
-                  >
-                     Vedi dati per regione
-                        <input 
-                        type="text" 
-                        name="search-regione" 
-                        className="form-control search-regione" 
-                        placeholder="Inserisci nome regione" 
-                        value={searchRegioni}
-                        onChange={handleSearchRegion}
-                        />
-                  </label>
-                  <label 
-                     className={`search-label  ${searchRegioni ? "disabled" : ""}`}
-                  >
-                     Vedi dati per provincia
-                        <input 
-                        type="text" 
-                        name="search-provincia" 
-                        className="form-control search-provincia" 
-                        placeholder="Inserisci nome provincia"
-                        value={searchProvince}
-                        onChange={handleSearchProvince}
-                        />
-                  </label>
-                  <button 
-                     type="submit"
-                     className="btn btn-success search-button"
-                  >
-                     {`Cerca ${searchRegioni ? "per regione" : searchProvince ? "per provincia" : ""}`}
-                  </button>
-                  </form>
-                     {!isLoading && !hasErrored && noData && (<span>Dati non disponibili</span>)}
-               </div>
-            </header>
+               </header>
+            </div>
+         </div>
+         <div className="row">
             {!hideForProvince && (
                <Tiles 
                   data={data}
                   localisation={localisation}
                />
             )}
+         </div>
+         <div className="row">
             <Evolution
                data={data}
                COLORS={COLORS}
@@ -116,7 +122,7 @@ const Dashboard = ({
                hideForProvince={hideForProvince}
             />
          </div>
-         <div>
+         <>
             {!hideForProvince && (
                <div className="row">
                   <div className="col-md-12 col-lg-6">
@@ -139,11 +145,11 @@ const Dashboard = ({
                   </div>
                </div>
             )}
-            <SourceLink
-               localisation={localisation}
-            />
-         </div>
-      </div>
+         </>
+         <SourceLink
+            localisation={localisation}
+         />
+      </>
    );
 };
 
