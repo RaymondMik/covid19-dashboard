@@ -180,7 +180,7 @@ function App (props: any) {
           className={`language-selection ${currentLanguage === "EN" ? "selected" : ""}`}
           onClick={() => handleChangeLang("EN")}
         >
-          EN
+          EN EN
         </span>
       </div> */}
       
