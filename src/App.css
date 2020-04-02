@@ -25,38 +25,24 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2em;
-  padding: .5em 15%;
+  padding: .5em 0;
   background-color: #2d3748!important;
   box-shadow: 1px 1px 10px 1px black;
   z-index: 1; 
 }
 
-.sitenav > ul {
-  margin: 0;
-}
-
-.sitenav > ul li {
-  margin-right: 1em;
-  display: inline-block;
-  list-style: none;
-}
-
-.sitenav > a, .sitenav li > a {
+.navbar-brand {
   color: #FFF;
   transition: 0.3s;
 }
 
-.sitenav > a:hover {
-  text-decoration: none;
-}
-
-.sitenav li > a:hover {
+.navbar-brand:hover {
   color: #009688;
   text-decoration: none;
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: 700;
   margin: 0;
 }

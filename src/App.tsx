@@ -148,34 +148,41 @@ function App (props: any) {
 
   return (
     <div className="app">
-      <nav className="sitenav">
-        <Link to="/" className="site-title-container">
-          <img src={virus} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
-          <h2>{localisation.title}</h2>
-        </Link>
-        <ul>
-          <li>
-            <Link to="/regioni">Regioni</Link>
-          </li>
-          <li>
-            <Link to="/province">Province</Link>
-          </li>
-        </ul>
+      <nav className="navbar justify-content-between sitenav">
+        <div className="container">
+          <Link to="/" className="navbar-brand site-title-container">
+            <img src={virus} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
+            <h2>{localisation.title}</h2>
+          </Link>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link className="nav-link" to="/regioni">Regioni</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/province">Province</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
-        {/* <div>
-          <span 
-            className={`language-selection ${currentLanguage === "IT" ? "selected" : ""}`}
-            onClick={() => handleChangeLang("IT")}
-          >
-              IT
-          </span>
-          <span 
-            className={`language-selection ${currentLanguage === "EN" ? "selected" : ""}`}
-            onClick={() => handleChangeLang("EN")}
-          >
-            EN
-          </span>
-        </div> */}
+      {/* <div>
+        <span 
+          className={`language-selection ${currentLanguage === "IT" ? "selected" : ""}`}
+          onClick={() => handleChangeLang("IT")}
+        >
+            IT
+        </span>
+        <span 
+          className={`language-selection ${currentLanguage === "EN" ? "selected" : ""}`}
+          onClick={() => handleChangeLang("EN")}
+        >
+          EN
+        </span>
+      </div> */}
       
       <div className="container content">
         {isLoading && !hasErrored && (<div className="loading"></div>)}
