@@ -16,14 +16,13 @@ const Province = ({
   
    useEffect(() => {
       aggregateProvinceData(data);
-    
    }, [data])
 
    const aggregateProvinceData = (data: any) => {
       const provinceAggregated: any = {};
 
       data.forEach((datum: any, i: number) => {
-         if (datum.denominazione_provincia === "In fase di definizione/aggiornamento") {
+         if (!datum.denominazione_provincia || datum.denominazione_provincia === "In fase di definizione/aggiornamento") {
             return;
          } else if (!provinceAggregated[datum.denominazione_provincia]) {
             provinceAggregated[datum.denominazione_provincia] = [ datum ];
