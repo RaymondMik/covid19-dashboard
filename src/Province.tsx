@@ -39,6 +39,8 @@ const Province = ({
    const filterProvince = (e: any) => {
       let filteredProvinces: any = {};
 
+      console.log(provinceNames);
+
       provinceNames.forEach((provinceName: string) => {
          if (provinceName.includes(e.target.value)) {
             filteredProvinces[provinceName] = provinceData[provinceName];
