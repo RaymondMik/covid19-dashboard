@@ -4,7 +4,6 @@ import Tiles from "./Tiles";
 import Evolution from "./Evolution";
 import Daily from "./Daily";
 import PositiveCases from "./PositiveCases";
-import SourceLink from "./SourceLink";
 
 import { parseDate } from "../utils";
 
@@ -161,9 +160,6 @@ const Dashboard = ({
                </div>
             )}
          </>
-         <SourceLink
-            localisation={localisation}
-         />
       </>
    );
 };

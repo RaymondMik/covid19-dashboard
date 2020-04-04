@@ -8,6 +8,7 @@ import {
 import Dashboard from "./dashboard";
 import Regioni from "./Regioni";
 import Province from "./Province";
+import SourceLink from "./SourceLink";
 
 import './App.css';
 import { normalizeSearchStr } from "./utils";
@@ -192,7 +193,7 @@ function App (props: any) {
         </span>
       </div> */}
       
-      <div className="container content">
+      <div className={`container content ${isMobileNavOpen ? "slide-down" : ""}`}>
         {isLoading && !hasErrored && (<div className="loading"></div>)}
         {!isLoading && hasErrored && (<h2>Error</h2>)}
         {!isLoading && noData && !data.length && (<h2>404 not found</h2>)}
@@ -234,6 +235,9 @@ function App (props: any) {
             </Route>
           </Switch>
         )}
+        <SourceLink
+          localisation={localisation}
+        />
       </div>
     </div>
   );
