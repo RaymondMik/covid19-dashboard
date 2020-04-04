@@ -140,7 +140,7 @@ function App (props: any) {
 
   const handlePositiveSelect = (e: any) => setSelectedDatePositive(e.target.value);
 
-  const handleChangeLang = (lang: string) => setCurrentLanguage(lang)
+  // const handleChangeLang = (lang: string) => setCurrentLanguage(lang)
 
   const toggleMobileNavbar = () => setMobileNavOpen(!isMobileNavOpen);
 
@@ -208,7 +208,10 @@ function App (props: any) {
               />
             </Route>
             <Route exact path="/province">
-              <Province />
+              <Province 
+                data={data}
+                localisation={localisation}
+              />
             </Route>
             <Route path={["/", "/province/:provinceId", "/regioni/:regioneId"]}>
               <Dashboard

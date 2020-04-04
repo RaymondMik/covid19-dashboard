@@ -8,7 +8,12 @@ interface RegioniProps {
    localisation: any
 }
 
-const Regioni = ({COLORS, data, localisation}: RegioniProps) => {
+const Regioni = ({
+   COLORS,
+   data,
+   localisation
+}: RegioniProps) => {
+   console.log(888, data);
    const regioniAggregated: any = {};
 
    data.forEach((datum: any, i: number) => {
@@ -18,8 +23,6 @@ const Regioni = ({COLORS, data, localisation}: RegioniProps) => {
          regioniAggregated[datum.denominazione_regione].push(datum);
       }
    });
-
-   console.log(111, regioniAggregated);
 
    return (
       <div className="content">
