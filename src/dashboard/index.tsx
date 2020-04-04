@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Tiles from "./Tiles";
 import Evolution from "./Evolution";
@@ -52,18 +52,24 @@ const Dashboard = ({
          <div className="row">
             <div className="col-sm-12">
                <header className="panel">
-                  <div className="header-title">
-                     <div className="title-place">
-                        <h3>{dataSetTitle}</h3>
-                        <p>{localisation.header} {parseDate(data[data.length - 1].data)}</p>
+                  <div className="row">
+                     <div className="col-xs-12 col-md-6">
+                        <div className="header-title">
+                           <div className="title-place">
+                              <h3>{dataSetTitle}</h3>
+                              <p>{localisation.header} {parseDate(data[data.length - 1].data)}</p>
+                           </div>
+                        </div>
                      </div>
-                     <div className="title-details">
-                        <p>Casi totali: {data[data.length - 1].totale_casi}</p>
-                        {!hideForProvince ? (
-                           <p>Tamponi totali: {data[data.length - 1].tamponi}</p>
-                        ) : (
-                           <small>Per le province sono disponibili solo i casi totali</small>
-                        )}
+                     <div className="col-xs-12 col-md-6">
+                        <div className="title-details">
+                           <p>Casi totali: {data[data.length - 1].totale_casi}</p>
+                           {!hideForProvince ? (
+                              <p>Tamponi totali: {data[data.length - 1].tamponi}</p>
+                           ) : (
+                              <small>Per le province sono disponibili solo i casi totali</small>
+                           )}
+                        </div>
                      </div>
                   </div>
                   <div className="search-container">
@@ -121,12 +127,15 @@ const Dashboard = ({
             )}
          </div>
          <div className="row">
-            <Evolution
-               data={data}
-               COLORS={COLORS}
-               localisation={localisation}
-               hideForProvince={hideForProvince}
-            />
+            <div className="col-lg-12">
+               <Evolution
+                  data={data}
+                  COLORS={COLORS}
+                  localisation={localisation}
+                  hideForProvince={hideForProvince}
+                  cssClass="situation-evolution-lg"
+               />
+            </div>
          </div>
          <>
             {!hideForProvince && (

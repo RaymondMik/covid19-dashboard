@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  Redirect
+  Link
 } from "react-router-dom";
 
 import Dashboard from "./dashboard";
@@ -206,6 +204,7 @@ function App (props: any) {
               <Regioni
                 data={data}
                 localisation={localisation}
+                COLORS={COLORS}
               />
             </Route>
             <Route exact path="/province">

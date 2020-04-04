@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import Evolution from "./dashboard/Evolution";
 
 interface RegioniProps {
+   COLORS: string[]
    data: any
    localisation: any
 }
 
-const Regioni = ({data}: RegioniProps) => {
+const Regioni = ({COLORS, data, localisation}: RegioniProps) => {
    const regioniAggregated: any = {};
 
    data.forEach((datum: any, i: number) => {
@@ -17,11 +19,15 @@ const Regioni = ({data}: RegioniProps) => {
       }
    });
 
+   console.log(111, regioniAggregated);
+
    return (
       <div className="content">
          <h3>REGIONI</h3>
          <div className="row">
-            {Object.keys(regioniAggregated).map((regione: string, i: number) => (
+            {Object.keys(regioniAggregated).map((regione: string, i: number) => {
+               console.log(999, regione);
+               return (
                <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
                   <div className="details-panel">
                      <Link to={`/regioni/${regione.toLowerCase().split(" ").join("")}`}> 
@@ -32,10 +38,16 @@ const Regioni = ({data}: RegioniProps) => {
                      <div className="details-value">
                         <small>Totale casi: </small>
                         <p>{regioniAggregated[regione][regioniAggregated[regione].length - 1].totale_casi}</p>
+                        <Evolution
+                           data={regioniAggregated[regione]}
+                           COLORS={COLORS}
+                           localisation={localisation}
+                           cssClass="situation-evolution-sm"
+                        />
                      </div>
                   </div>
                </div>
-            ))}
+            )})}
          </div>
       </div>
    );
