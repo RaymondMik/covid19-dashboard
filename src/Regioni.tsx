@@ -13,7 +13,6 @@ const Regioni = ({
    data,
    localisation
 }: RegioniProps) => {
-   console.log(888, data);
    const regioniAggregated: any = {};
 
    data.forEach((datum: any, i: number) => {
