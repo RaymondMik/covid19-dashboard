@@ -10,11 +10,11 @@ const Province = ({
    data,
    localisation
 }: ProvinceProps) => {
-   const [rawData, setRawData] = useState<any>([]);
    const [provinceData, setProvinceData] = useState<any>({});
+   const [filteredProvinceData, setFilteredProvinceData] = useState<any>({});
+   const [provinceNames, setProvinceNames] = useState<any>([]);
   
    useEffect(() => {
-      setRawData(data);
       aggregateProvinceData(data);
     
    }, [data])
@@ -27,6 +27,7 @@ const Province = ({
             return;
          } else if (!provinceAggregated[datum.denominazione_provincia]) {
             provinceAggregated[datum.denominazione_provincia] = [ datum ];
+            setProvinceNames((prevProvinceNames: string[]) => [...prevProvinceNames, datum.denominazione_provincia]);
          } else {
             provinceAggregated[datum.denominazione_provincia].push(datum);
          }
@@ -36,14 +37,20 @@ const Province = ({
    }
 
    const filterProvince = (e: any) => {
-      const filteredData = provinceData[e.target.value];
+      let filteredProvinces: any = {};
 
-      if (filteredData) {
-         setProvinceData({[e.target.value]: filteredData});
-      } else if (Object.keys(provinceData).length === 1) {
-         aggregateProvinceData(rawData);
-      }
+      provinceNames.forEach((provinceName: string) => {
+         if (provinceName.includes(e.target.value)) {
+            filteredProvinces[provinceName] = provinceData[provinceName];
+         }
+      });
+      
+      if (Object.keys(filteredProvinces).length) {
+         setFilteredProvinceData(filteredProvinces);
+      } 
    }
+
+   const renderData = Object.keys(filteredProvinceData).length ? filteredProvinceData : provinceData;
 
    return (
       <div className="content">
@@ -60,7 +67,7 @@ const Province = ({
             </div>
          </div>
          <div className="row">
-            {Object.keys(provinceData).map((provincia: string, i: number) => (
+            {renderData && Object.keys(renderData).map((provincia: string, i: number) => (
                <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
                   <div className="details-panel">
                      <Link to={`/province/${provincia.toLowerCase().split(" ").join("")}`}> 
