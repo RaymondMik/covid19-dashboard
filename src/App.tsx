@@ -54,8 +54,6 @@ function App (props: any) {
       .then(res => {
         let filteredData: any = res;
 
-        console.log(898, res);
-
         if (urlPathName[1] === "regioni") {
           if (urlPathName[2]) {
             filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_regione) === urlPathName[2]);
