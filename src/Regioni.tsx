@@ -27,7 +27,7 @@ const Regioni = ({
       <div className="content">
          <h3>REGIONI</h3>
          <div className="row">
-            {Object.keys(regioniAggregated).map((regione: string, i: number) => {
+            {Object.keys(regioniAggregated).length > 0 && Object.keys(regioniAggregated).map((regione: string, i: number) => {
                return (
                   <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
                      <div className="details-panel">

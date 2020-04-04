@@ -67,7 +67,7 @@ const Province = ({
             </div>
          </div>
          <div className="row">
-            {renderData && Object.keys(renderData).map((provincia: string, i: number) => (
+            {Object.keys(renderData).length > 0 && Object.keys(renderData).map((provincia: string, i: number) => (
                <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
                   <div className="details-panel">
                      <Link to={`/province/${provincia.toLowerCase().split(" ").join("")}`}> 
