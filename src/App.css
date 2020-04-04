@@ -31,6 +31,16 @@
   z-index: 1; 
 }
 
+.navbar-dark .navbar-nav .nav-link {
+  font-size: .9em;
+  color: white;
+  transition: 0.3s;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #009688
+}
+
 .navbar-brand {
   color: #FFF;
   transition: 0.3s;
@@ -42,7 +52,7 @@
 }
 
 h2 {
-  font-size: 1.3em;
+  font-size: 1.15em;
   font-weight: 700;
   margin: 0;
 }
@@ -65,8 +75,6 @@ h4 {
   font-weight: 700;
 }
 
-
-
 .panel {
   width: 100%;
   background-color:#2d3748;
@@ -88,7 +96,7 @@ h4 {
 }
 
 .search-label {
-  width: 25%;
+  width: 100%;
   margin-right: 1.7em;
   padding-bottom: .5em;
   font-size: .9em;
@@ -107,6 +115,7 @@ h4 {
 }
 
 .search-button {
+  width: 100%;
   color: #009688 !important;
   border: 1px solid #009688 !important;
 }
@@ -265,7 +274,7 @@ h3.section-title {
 	100% { -webkit-transform: rotate(360deg); }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 720px) {
   nav {
     padding: 0.5em 2em 0.2em;
     margin-bottom: 1em;
@@ -342,16 +351,27 @@ h3.section-title {
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 540px) {
   .site-icon {
-    height: 22px;
-    width: 22px;
-    transform: rotateZ(15deg);
-    margin-right: 5px;
+    height: 20px;
+    width: 20px;
+    margin-right: 3px;
   }
 
   h2 {
-    font-size: 1em;
+    font-size: 1.1em;
+  }
+
+  h3 {
+    font-size: 1.3em;
+  }
+
+  .panel {
+    font-size: .9em;
+  }
+
+  .details-panel {
+    margin-bottom: 4%;
   }
 
   .sitenav > ul li {

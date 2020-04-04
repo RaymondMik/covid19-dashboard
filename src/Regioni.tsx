@@ -19,7 +19,7 @@ const Regioni = ({data}: RegioniProps) => {
 
    return (
       <div className="content">
-         <h4>REGIONI</h4>
+         <h3>REGIONI</h3>
          <div className="row">
             {Object.keys(regioniAggregated).map((regione: string, i: number) => (
                <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>

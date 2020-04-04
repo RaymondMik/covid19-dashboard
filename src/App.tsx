@@ -25,6 +25,7 @@ function App (props: any) {
   const [selectedDateDaily, setSelectedDateDaily] = useState<string>("");
   const [selectedDatePositive, setSelectedDatePositive] = useState<string>("");
   const [hideForProvince, setHideForProvince] = useState<boolean>(false);
+  const [isMobileNavOpen, setMobileNavOpen] =  useState<boolean>(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>("IT");
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -143,22 +144,33 @@ function App (props: any) {
 
   const handleChangeLang = (lang: string) => setCurrentLanguage(lang)
 
+  const toggleMobileNavbar = () => setMobileNavOpen(!isMobileNavOpen);
+
   //@ts-ignore
   const localisation: any = L.default[currentLanguage];
 
   return (
     <div className="app">
-      <nav className="navbar justify-content-between sitenav">
+      <nav className="navbar navbar-dark navbar-expand-md bg-dark justify-content-between sitenav">
         <div className="container">
           <Link to="/" className="navbar-brand site-title-container">
             <img src={virus} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
             <h2>{localisation.title}</h2>
           </Link>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <button 
+            className={`navbar-toggler ${!isMobileNavOpen ? "collapsed" : ""}`} 
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            aria-expanded={isMobileNavOpen}
+            aria-label="Toggle navigation"
+            onClick={toggleMobileNavbar}
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
+          <div className={`collapse navbar-collapse order-0 ${isMobileNavOpen ? "show" : ""}`} id="navbarNav">
+            <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link className="nav-link" to="/regioni">Regioni</Link>
               </li>
