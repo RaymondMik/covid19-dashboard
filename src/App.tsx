@@ -53,6 +53,7 @@ function App (props: any) {
         return response.json();
       })
       .then(res => {
+        console.log(999, res);
         let filteredData: any = res;
 
         if (urlPathName[1] === "regioni") {

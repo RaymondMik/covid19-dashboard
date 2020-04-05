@@ -43,7 +43,7 @@ const Evolution = ({
       ) : (
         <ResponsiveContainer>
           <LineChart data={mappedData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            margin={{ top: 5, right: 30, left: 20, bottom: 0 }}
             >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" stroke="#FFF"/>

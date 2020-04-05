@@ -52,15 +52,15 @@ const Daily = ({
       <ul>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[0]}}/>
-          {localisation.positives}: {data[selectedDateIndex].totale_positivi} {getDailyIncrement(data[selectedDateIndex - 1].totale_positivi, data[selectedDateIndex].totale_positivi)}
+          {localisation.positives}: {data[selectedDateIndex].totale_positivi} ({getDailyIncrement(data[selectedDateIndex - 1].totale_positivi, data[selectedDateIndex].totale_positivi)})
         </li>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[1]}}/>
-          {localisation.recovered}: {data[selectedDateIndex].dimessi_guariti} {getDailyIncrement(data[selectedDateIndex - 1].dimessi_guariti, data[selectedDateIndex].dimessi_guariti)}
+          {localisation.recovered}: {data[selectedDateIndex].dimessi_guariti} ({getDailyIncrement(data[selectedDateIndex - 1].dimessi_guariti, data[selectedDateIndex].dimessi_guariti)})
         </li>
         <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[2]}}/>
-          {localisation.deaths}: {data[selectedDateIndex].deceduti} {getDailyIncrement(data[selectedDateIndex - 1].deceduti, data[selectedDateIndex].deceduti)}
+          {localisation.deaths}: {data[selectedDateIndex].deceduti} ({getDailyIncrement(data[selectedDateIndex - 1].deceduti, data[selectedDateIndex].deceduti)})
         </li>
       </ul>
     </section>

@@ -15,7 +15,7 @@ const SourceLink = ({ localisation }: SourceLinkProps) => (
       >
          {localisation.disclaimer[1]}  
       </a>
-      {localisation.disclaimer[2]}<br />
+      {localisation.disclaimer[2]}<br /><br />
       <small>built by <a href="https://twitter.com/RMiklus" target="blank">@RMiklus</a></small>
    </p>
 );
