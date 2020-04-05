@@ -73,7 +73,7 @@ const Regioni = ({
                   type="text" 
                   name="" 
                   className="form-control filter-regioni" 
-                  placeholder="Cerca provincia"
+                  placeholder="Cerca regione"
                   onChange={filterRegioni}
                />
             </div>
