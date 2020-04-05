@@ -149,6 +149,11 @@ h3.section-title {
   font-weight: bold;
 }
 
+.title-place p {
+  font-size: .9em;
+  margin-bottom: 0;
+}
+
 .details-container {
   width: 100%;
 

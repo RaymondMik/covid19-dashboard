@@ -99,6 +99,7 @@ const Dashboard = ({
                         <div className="header-title">
                            <div className="title-place">
                               <h3>{dataSetTitle}</h3>
+                              {dataSetTitle === "Italia" && <p>Popolazione residente: 60 milioni 317mila (fonte: <a href="https://www.istat.it/it/archivio/238447" target="blank">ISTAT</a>)</p>}
                               <p>{localisation.header} {parseDate(data[data.length - 1].data)}</p>
                            </div>
                         </div>
