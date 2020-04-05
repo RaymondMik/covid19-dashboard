@@ -8,7 +8,6 @@ const SourceLink = ({ localisation }: SourceLinkProps) => (
    <p className="source-link">
       {localisation.disclaimer[0]}  
       <a
-         className="link"
          href="https://github.com/pcm-dpc/COVID-19"
          target="_blank"
          rel="noopener noreferrer"

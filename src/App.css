@@ -47,6 +47,16 @@
   text-decoration: none;
 }
 
+a {
+  color: #FFF;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: #009688;
+  text-decoration: none;
+}
+
 h2 {
   font-size: 1.15em;
   font-weight: 700;
@@ -160,6 +170,9 @@ h3.section-title {
   margin-bottom: 1.7em;
 }
 
+.content {
+  margin-top: 1em;
+}
 
 .details-panel {
   padding: 2% 1%;
@@ -405,6 +418,10 @@ h3.section-title {
 
   .panel {
     font-size: .9em;
+  }
+
+  .title-details {
+    margin-top: 1em;
   }
 
   .details-panel {
