@@ -6,7 +6,6 @@ interface SourceLinkProps {
 
 const SourceLink = ({ localisation }: SourceLinkProps) => (
    <p className="source-link">
-      <p className="explain-increment">{localisation.increment}</p>
       {localisation.disclaimer[0]}  
       <a
          className="link"
@@ -17,6 +16,7 @@ const SourceLink = ({ localisation }: SourceLinkProps) => (
          {localisation.disclaimer[1]}  
       </a>
       {localisation.disclaimer[2]}<br />
+      <small>built by <a href="https://twitter.com/RMiklus" target="blank">@RMiklus</a></small>
    </p>
 );
 

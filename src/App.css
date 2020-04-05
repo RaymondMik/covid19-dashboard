@@ -17,9 +17,6 @@
 }
 
 .sitenav {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -32,7 +29,7 @@
 }
 
 .navbar-dark .navbar-nav .nav-link {
-  font-size: .9em;
+  font-size: 1em;
   color: white;
   transition: 0.3s;
 }
@@ -63,14 +60,6 @@ h3 {
 
 h4 {
   font-size: 1.4em;
-}
-
-.content {
-  margin-top: 90px;
-}
-
-.content.slide-down {
-  transform: translateY(90px);
 }
 
 .language-selection {
@@ -134,7 +123,7 @@ h4 {
   color: #f8f9fa !important;
 }
 
-.filter-province {
+.filter-regioni, .filter-province {
   width: 100%;
   margin: 1em 0 3em;
   padding: .4em;
@@ -402,11 +391,15 @@ h3.section-title {
   }
 
   h3 {
-    font-size: 1.8em;
+    font-size: 1.4em;
   }
 
   .panel {
     font-size: .9em;
+  }
+
+  .navbar-dark .navbar-nav .nav-link {
+    font-size: 1.1em;
   }
 
   .details-panel {
@@ -423,10 +416,6 @@ h3.section-title {
 
   .search-container {
     margin-top: 2em;
-  }
-
-  .content {
-    margin-top: 80px;
   }
 
   .situation-evolution-sm, .situation-evolution-lg {
