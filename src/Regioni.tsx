@@ -42,7 +42,7 @@ const Regioni = ({
       let filteredRegions: any = {};
 
       regioniNames.forEach((regionName: string) => {
-         if (regionName.includes(e.target.value)) {
+         if (regionName.toLowerCase().includes(e.target.value.trim().toLowerCase())) {
             filteredRegions[regionName] = regioniData[regionName];
          }
       });

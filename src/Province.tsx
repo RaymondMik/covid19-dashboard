@@ -39,7 +39,7 @@ const Province = ({
       let filteredProvinces: any = {};
 
       provinceNames.forEach((provinceName: string) => {
-         if (provinceName.includes(e.target.value)) {
+         if (provinceName.toLowerCase().includes(e.target.value.trim().toLowerCase())) {
             filteredProvinces[provinceName] = provinceData[provinceName];
          }
       });
