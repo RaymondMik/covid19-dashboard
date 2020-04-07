@@ -50,29 +50,7 @@ const Dashboard = ({
       <>
          <div className="row">
             <div className="col-sm-12">
-               <header className="panel">
-                  <div className="row">
-                     <div className="col-xs-12 col-md-6">
-                        <div className="header-title">
-                           <div className="title-place">
-                              <h3>{dataSetTitle}</h3>
-                              {dataSetTitle === "Italia" && <p>Popolazione residente: 60 milioni 317mila (fonte: <a href="https://www.istat.it/it/archivio/238447" target="blank">ISTAT</a>)</p>}
-                              <p>{localisation.header} {parseDate(data[data.length - 1].data)}</p>
-                           </div>
-                        </div>
-                     </div>
-                     <div className="col-xs-12 col-md-6">
-                        <div className="title-details">
-                           <p>Casi totali: {data[data.length - 1].totale_casi}</p>
-                           {!hideForProvince ? (
-                              <p>Tamponi totali: {data[data.length - 1].tamponi}</p>
-                           ) : (
-                              <small>Per le province sono disponibili solo i casi totali</small>
-                           )}
-                        </div>
-                     </div>
-                  </div>
-                  <div className="search-container">
+            <div className="search-container">
                      <form className="row" onSubmit={handleClickSearch}>
                         <div className="col-sm-12 col-md-4">
                            <label 
@@ -115,6 +93,29 @@ const Dashboard = ({
                      </form>
                      {!isLoading && !hasErrored && noData && (<span>Dati non disponibili</span>)}
                   </div>
+               <header className="panel">
+                  <div className="row">
+                     <div className="col-xs-12 col-md-6">
+                        <div className="header-title">
+                           <div className="title-place">
+                              <h3>{dataSetTitle}</h3>
+                              {dataSetTitle === "Italia" && <p>Popolazione residente: 60 milioni 317mila (fonte: <a href="https://www.istat.it/it/archivio/238447" target="blank">ISTAT</a>)</p>}
+                              <p>{localisation.header} {parseDate(data[data.length - 1].data)}</p>
+                           </div>
+                        </div>
+                     </div>
+                     <div className="col-xs-12 col-md-6">
+                        <div className="title-details">
+                           <p>Casi totali: {data[data.length - 1].totale_casi}</p>
+                           {!hideForProvince ? (
+                              <p>Tamponi totali: {data[data.length - 1].tamponi}</p>
+                           ) : (
+                              <small>Per le province sono disponibili solo i casi totali</small>
+                           )}
+                        </div>
+                     </div>
+                  </div>
+                 
                </header>
             </div>
          </div>
