@@ -6,6 +6,7 @@
       "totalPositives": "Totale dei casi positivi",
       "totalHospitalized": "Totale ospedalizzati",
       "casiTamponi": "Casi / tamponi",
+      "mortalityRate": "Tasso di mortalità",
       "recovered": "Guariti",
       "deaths": "Decessi",
       "evolution": "Evoluzione dell'epidema",
