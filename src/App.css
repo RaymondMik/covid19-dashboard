@@ -193,7 +193,7 @@ h3.section-title {
   transition: 0.3s;
 }
 
-.details-title > h4:hover {
+a > .details-title > h4:hover {
   color: #009688;
 }
 
