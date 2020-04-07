@@ -25,17 +25,6 @@ const Tiles = ({
     <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
       <div className="details-panel">
         <div className="details-title">
-          <h4>{localisation.totalHospitalized}</h4>
-        </div>
-        <div className="details-value">
-          <p>{data[data.length -1].totale_ospedalizzati}</p>
-          <span className="value-difference">({getDailyIncrement(data[data.length -2].totale_ospedalizzati, data[data.length -1].totale_ospedalizzati)})</span>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
-      <div className="details-panel">
-        <div className="details-title">
           <h4>{localisation.recovered}</h4>
         </div>
         <div className="details-value">
@@ -52,6 +41,17 @@ const Tiles = ({
         <div className="details-value">
           <p>{data[data.length -1].deceduti}</p>
           <span className="value-difference">({getDailyIncrement(data[data.length -2].deceduti, data[data.length -1].deceduti)})</span>
+        </div>
+      </div>
+    </div>
+    <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
+      <div className="details-panel">
+        <div className="details-title">
+          <h4>{localisation.totalHospitalized}</h4>
+        </div>
+        <div className="details-value">
+          <p>{data[data.length -1].totale_ospedalizzati}</p>
+          <span className="value-difference">({getDailyIncrement(data[data.length -2].totale_ospedalizzati, data[data.length -1].totale_ospedalizzati)})</span>
         </div>
       </div>
     </div>
