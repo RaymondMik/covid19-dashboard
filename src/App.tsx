@@ -123,6 +123,7 @@ function App (props: any) {
     });
 
     setSearchRegioniSuggestion(matches);
+    setSearchProvinceSuggestion([]);
 
     setSearchRegioni(e.target.value);
   }
@@ -141,6 +142,7 @@ function App (props: any) {
     });
 
     setSearchProvinceSuggestion(matches);
+    setSearchRegioniSuggestion([]);
 
     setSearchProvince(e.target.value);
   }
@@ -154,6 +156,13 @@ function App (props: any) {
       setSearchRegioniSuggestion([]);
     }
   }
+
+  const handleClickSearchField = () => {
+    setSearchRegioniSuggestion([]);
+    setSearchProvinceSuggestion([]);
+    setSearchRegioni("");
+    setSearchProvince("");
+  };
 
   const handleClickSearch = (e: any) => {
     e.preventDefault();
@@ -252,6 +261,7 @@ function App (props: any) {
                 dataSetTitle={dataSetTitle}
                 hideForProvince={hideForProvince}
                 handleClickSearch={handleClickSearch}
+                handleClickSearchField={handleClickSearchField}
                 handleSearchRegion={handleSearchRegion}
                 handleSearchProvince={handleSearchProvince}
                 hasErrored={hasErrored}

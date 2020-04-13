@@ -145,6 +145,7 @@ h4 {
   list-style-type: none;
   z-index: 2;
   transition: 0.3s;
+  box-shadow: 0 5px 15px 0 black;
 }
 
 .search-suggestion li {
@@ -158,6 +159,7 @@ h4 {
 
 .search-suggestion li:hover {
   color: green;
+  font-weight: bold;
 }
 
 .filter-regioni, .filter-province {

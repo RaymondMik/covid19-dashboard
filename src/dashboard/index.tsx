@@ -15,6 +15,7 @@ interface DashboardProps {
    handleDailySelect: (e: any) => void;
    hideForProvince: boolean,
    handleClickSearch: (e: any) => void;
+   handleClickSearchField: (e: any) => void;
    handleSearchRegion: (e: any) => void;
    handleSearchProvince: (e: any) => void;
    hasErrored: boolean,
@@ -37,6 +38,7 @@ const Dashboard = ({
    dataSetTitle,
    hideForProvince,
    handleClickSearch,
+   handleClickSearchField,
    handleSearchRegion,
    handleSearchProvince,
    hasErrored,
@@ -65,12 +67,13 @@ const Dashboard = ({
                         >
                            Vedi dati per regione
                               <input 
-                              type="text" 
-                              name="search-regione" 
-                              className="form-control search-regione" 
-                              placeholder="Inserisci nome regione" 
-                              value={searchRegioni}
-                              onChange={handleSearchRegion}
+                                 type="text" 
+                                 name="search-regione" 
+                                 className="form-control search-regione" 
+                                 placeholder="Inserisci nome regione" 
+                                 value={searchRegioni}
+                                 onClick={handleClickSearchField}
+                                 onChange={handleSearchRegion}
                               />
                         </label>
                         {searchRegioniSuggestion.length > 0 && (
@@ -87,12 +90,13 @@ const Dashboard = ({
                         >
                            Vedi dati per provincia
                               <input 
-                              type="text" 
-                              name="search-provincia" 
-                              className="form-control search-provincia" 
-                              placeholder="Inserisci nome provincia"
-                              value={searchProvince}
-                              onChange={handleSearchProvince}
+                                 type="text" 
+                                 name="search-provincia" 
+                                 className="form-control search-provincia" 
+                                 placeholder="Inserisci nome provincia"
+                                 value={searchProvince}
+                                 onClick={handleClickSearchField}
+                                 onChange={handleSearchProvince}
                               />
                         </label>
                         {searchProvinceSuggestion.length > 0 && (
