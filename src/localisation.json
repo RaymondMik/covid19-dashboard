@@ -17,9 +17,9 @@
       "therapy": "Ricoverati in terapia intensiva",
       "increment": "* incremento percentuale rispetto la rilevamento precedente.",
       "disclaimer": {
-         "0": "I dati sono estratti da \n",
-         "1": "pcm-dpc/COVID-19",
-         "2": "\ne sono qui riportati a titolo puramente informativo e senza scopo di lucro. Si invita a consultare sempre le fonti ufficiali per la verifica dei dati, e si declina qualsiasi responsabilità relativamente ad eventuali errori presenti su questo sito.",
+         "0": "I dati sono forniti dal \n",
+         "1": "Dipartimento della Protezione Civile",
+         "2": "\ne sono qui riportati a titolo puramente informativo. Si invita a consultare sempre le fonti ufficiali per la verifica dei dati, e si declina qualsiasi responsabilità relativamente ad eventuali errori presenti su questo sito.",
          "3": "Data API:\n"
       }
    },
