@@ -15,7 +15,6 @@ interface DashboardProps {
    handleDailySelect: (e: any) => void;
    hideForProvince: boolean,
    handleClickSearch: (e: any) => void;
-   handleClickSearchField: (e: any) => void;
    handleSearchRegion: (e: any) => void;
    handleSearchProvince: (e: any) => void;
    hasErrored: boolean,
@@ -38,7 +37,6 @@ const Dashboard = ({
    dataSetTitle,
    hideForProvince,
    handleClickSearch,
-   handleClickSearchField,
    handleSearchRegion,
    handleSearchProvince,
    hasErrored,
@@ -72,7 +70,6 @@ const Dashboard = ({
                                  className="form-control search-regione" 
                                  placeholder="Inserisci nome regione" 
                                  value={searchRegioni}
-                                 onClick={handleClickSearchField}
                                  onChange={handleSearchRegion}
                               />
                         </label>
@@ -95,7 +92,6 @@ const Dashboard = ({
                                  className="form-control search-provincia" 
                                  placeholder="Inserisci nome provincia"
                                  value={searchProvince}
-                                 onClick={handleClickSearchField}
                                  onChange={handleSearchProvince}
                               />
                         </label>

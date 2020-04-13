@@ -109,25 +109,6 @@ function App (props: any) {
       });
   }, [props.location.pathname, props.history]);
 
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", () => {
-  //     if (searchProvinceSuggestion.length > 0) {
-  //       setSearchProvinceSuggestion([]);
-  //     }
-  //     if (searchRegioniSuggestion.length > 0) {
-  //       setSearchRegioniSuggestion([]);
-  //     }
-
-  //     if (searchProvince.length > 0) {
-  //       setSearchProvince("");
-  //     }
-
-  //     if (searchRegioni.length > 0) {
-  //       setSearchRegioni("");
-  //     }
-  //   });
-  // }, [searchProvinceSuggestion, searchRegioniSuggestion]);
-
   const handleSearchRegion = (e: any) => {
     if (searchProvince.length > 0) {
       setSearchProvince("");
@@ -175,13 +156,6 @@ function App (props: any) {
       setSearchRegioniSuggestion([]);
     }
   }
-
-  const handleClickSearchField = () => {
-    setSearchRegioniSuggestion([]);
-    setSearchProvinceSuggestion([]);
-    setSearchRegioni("");
-    setSearchProvince("");
-  };
 
   const handleClickSearch = (e: any) => {
     e.preventDefault();
@@ -280,7 +254,6 @@ function App (props: any) {
                 dataSetTitle={dataSetTitle}
                 hideForProvince={hideForProvince}
                 handleClickSearch={handleClickSearch}
-                handleClickSearchField={handleClickSearchField}
                 handleSearchRegion={handleSearchRegion}
                 handleSearchProvince={handleSearchProvince}
                 hasErrored={hasErrored}
