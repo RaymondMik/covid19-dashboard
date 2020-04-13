@@ -117,7 +117,7 @@ function App (props: any) {
     const matches:string[] = [];
 
     S.regioni.forEach((regione: string) => {
-      if (e.target.value.length > 2 && regione.toLowerCase().includes(e.target.value.trim().toLowerCase())) {
+      if (e.target.value.length > 0 && regione.toLowerCase().startsWith(e.target.value.trim().toLowerCase())) {
         matches.push(regione);
       } 
     });
@@ -135,7 +135,7 @@ function App (props: any) {
     const matches:string[] = [];
 
     S.provincie.forEach((provincia: string) => {
-      if (e.target.value.length > 2 && provincia.toLowerCase().includes(e.target.value.trim().toLowerCase())) {
+      if (e.target.value.length > 0 && provincia.toLowerCase().startsWith(e.target.value.trim().toLowerCase())) {
         matches.push(provincia);
       } 
     });

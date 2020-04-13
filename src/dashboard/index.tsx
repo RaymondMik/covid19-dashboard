@@ -4,6 +4,7 @@ import Tiles from "./Tiles";
 import Evolution from "./Evolution";
 import Daily from "./Daily";
 import PositiveCases from "./PositiveCases";
+import SearchSuggestion from "./SearchSuggestion";
 
 import { parseDate } from "../utils";
 
@@ -56,67 +57,63 @@ const Dashboard = ({
       <>
          <div className="row">
             <div className="col-sm-12">
-            <div className="search-container">
-                     <form className="row" onSubmit={handleClickSearch} autoComplete="off">
-                        <div className="col-sm-12 col-md-4">
-                           <label 
-                              className={`search-label  ${searchProvince ? "disabled" : ""}`}
-                           >
-                              Vedi dati per regione
-                                 <input 
-                                 type="text" 
-                                 name="search-regione" 
-                                 className="form-control search-regione" 
-                                 placeholder="Inserisci nome regione" 
-                                 value={searchRegioni}
-                                 onChange={handleSearchRegion}
-                                 />
-                           </label>
-                           {searchRegioniSuggestion.length > 0 && (
-                              <ul>
-                                 {searchRegioniSuggestion.map((search: string, index: number) => (
-                                    <li key={index} onClick={() => { handleClickSuggestion(search, "regioni") }}>
-                                       {search}
-                                    </li>
-                                 ))}
-                              </ul>
-                           )}
-                        </div>
-                        <div className="col-sm-12 col-md-4">
-                           <label 
-                              className={`search-label  ${searchRegioni ? "disabled" : ""}`}
-                           >
-                              Vedi dati per provincia
-                                 <input 
-                                 type="text" 
-                                 name="search-provincia" 
-                                 className="form-control search-provincia" 
-                                 placeholder="Inserisci nome provincia"
-                                 value={searchProvince}
-                                 onChange={handleSearchProvince}
-                                 />
-                           </label>
-                           {searchProvinceSuggestion.length > 0 && (
-                              <ul>
-                                 {searchProvinceSuggestion.map((search: string, index: number) => (
-                                    <li key={index} onClick={() => { handleClickSuggestion(search, "province") }}>
-                                       {search}
-                                    </li>
-                                 ))}
-                              </ul>
-                           )}
-                        </div>
-                        <div className="col-sm-12 col-md-4">
-                           <button 
-                              type="submit"
-                              className="btn btn-success search-button"
-                           >
-                              {`Cerca ${searchRegioni ? "per regione" : searchProvince ? "per provincia" : ""}`}
-                           </button>
-                        </div>
-                     </form>
-                     {!isLoading && !hasErrored && noData && (<span>Dati non disponibili</span>)}
-                  </div>
+               <div className="search-container">
+                  <form className="row" onSubmit={handleClickSearch} autoComplete="off">
+                     <div className="col-sm-12 col-md-4">
+                        <label 
+                           className={`search-label  ${searchProvince ? "disabled" : ""}`}
+                        >
+                           Vedi dati per regione
+                              <input 
+                              type="text" 
+                              name="search-regione" 
+                              className="form-control search-regione" 
+                              placeholder="Inserisci nome regione" 
+                              value={searchRegioni}
+                              onChange={handleSearchRegion}
+                              />
+                        </label>
+                        {searchRegioniSuggestion.length > 0 && (
+                           <SearchSuggestion
+                              suggestionArray={searchRegioniSuggestion}
+                              handleClickSuggestion={handleClickSuggestion}
+                              type="regioni"
+                           />
+                        )}
+                     </div>
+                     <div className="col-sm-12 col-md-4">
+                        <label 
+                           className={`search-label  ${searchRegioni ? "disabled" : ""}`}
+                        >
+                           Vedi dati per provincia
+                              <input 
+                              type="text" 
+                              name="search-provincia" 
+                              className="form-control search-provincia" 
+                              placeholder="Inserisci nome provincia"
+                              value={searchProvince}
+                              onChange={handleSearchProvince}
+                              />
+                        </label>
+                        {searchProvinceSuggestion.length > 0 && (
+                           <SearchSuggestion
+                              suggestionArray={searchProvinceSuggestion}
+                              handleClickSuggestion={handleClickSuggestion}
+                              type="province"
+                           />
+                        )}
+                     </div>
+                     <div className="col-sm-12 col-md-4">
+                        <button 
+                           type="submit"
+                           className="btn btn-success search-button"
+                        >
+                           {`Cerca ${searchRegioni ? "per regione" : searchProvince ? "per provincia" : ""}`}
+                        </button>
+                     </div>
+                  </form>
+                  {!isLoading && !hasErrored && noData && (<span>Dati non disponibili</span>)}
+               </div>
                <header className="panel">
                   <div className="row">
                      <div className="col-xs-12 col-md-6">

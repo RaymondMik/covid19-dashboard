@@ -132,6 +132,34 @@ h4 {
   color: #f8f9fa !important;
 }
 
+.search-suggestion {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  /* background-color: #1a202c; */
+  background-color: #fff;
+  color: #1a202c;
+  margin: 0;
+  padding: 1.2em;
+  border-radius: .2em;
+  list-style-type: none;
+  z-index: 2;
+  transition: 0.3s;
+}
+
+.search-suggestion li {
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.search-suggestion li:not(:last-child) {
+  margin-bottom: .6em;
+}
+
+.search-suggestion li:hover {
+  color: green;
+}
+
 .filter-regioni, .filter-province {
   width: 100%;
   margin: 1em 0 3em;
