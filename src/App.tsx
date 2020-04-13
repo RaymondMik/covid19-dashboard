@@ -14,6 +14,7 @@ import './App.css';
 import { normalizeSearchStr } from "./utils";
 
 import * as L from "./localisation.json";
+import * as S from "./static.json";
 import virus from "./icons/virus.svg";
 
 function App (props: any) {
@@ -26,6 +27,8 @@ function App (props: any) {
   const [hideForProvince, setHideForProvince] = useState<boolean>(false);
   const [isMobileNavOpen, setMobileNavOpen] =  useState<boolean>(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>("IT");
+  const [searchProvinceSuggestion, setSearchProvinceSuggestion] = useState<string[]>([]);
+  const [searchRegioniSuggestion, setSearchRegioniSuggestion] = useState<string[]>([]);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasErrored, setHasErrored] = useState<boolean>(false);
@@ -111,6 +114,16 @@ function App (props: any) {
       setSearchProvince("");
     }
 
+    const matches:string[] = [];
+
+    S.regioni.forEach((regione: string) => {
+      if (e.target.value.length > 2 && regione.toLowerCase().includes(e.target.value.trim().toLowerCase())) {
+        matches.push(regione);
+      } 
+    });
+
+    setSearchRegioniSuggestion(matches);
+
     setSearchRegioni(e.target.value);
   }
 
@@ -119,7 +132,27 @@ function App (props: any) {
       setSearchRegioni("");
     }
 
+    const matches:string[] = [];
+
+    S.provincie.forEach((provincia: string) => {
+      if (e.target.value.length > 2 && provincia.toLowerCase().includes(e.target.value.trim().toLowerCase())) {
+        matches.push(provincia);
+      } 
+    });
+
+    setSearchProvinceSuggestion(matches);
+
     setSearchProvince(e.target.value);
+  }
+
+  const handleClickSuggestion = (suggestion: string, type: string) => {
+    if (type === "province") {
+      setSearchProvince(suggestion);
+      setSearchProvinceSuggestion([]);
+    } else {
+      setSearchRegioni(suggestion);
+      setSearchRegioniSuggestion([]);
+    }
   }
 
   const handleClickSearch = (e: any) => {
@@ -227,6 +260,9 @@ function App (props: any) {
                 noData={noData}
                 searchRegioni={searchRegioni}
                 searchProvince={searchProvince}
+                searchProvinceSuggestion={searchProvinceSuggestion}
+                searchRegioniSuggestion={searchRegioniSuggestion}
+                handleClickSuggestion={handleClickSuggestion}
                 selectedDateDaily={selectedDateDaily}
                 selectedDatePositive={selectedDatePositive}
                 handleDailySelect={handleDailySelect}

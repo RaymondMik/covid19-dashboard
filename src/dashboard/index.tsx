@@ -24,6 +24,9 @@ interface DashboardProps {
    searchProvince: string,
    selectedDateDaily: string;
    selectedDatePositive: string;
+   searchProvinceSuggestion: string[];
+   searchRegioniSuggestion: string[];
+   handleClickSuggestion: (search: string, type: string) => void;
    handlePositiveSelect: (e: any) => void;
 }
 
@@ -44,14 +47,17 @@ const Dashboard = ({
    selectedDateDaily,
    selectedDatePositive,
    handleDailySelect,
-   handlePositiveSelect
+   handlePositiveSelect,
+   searchProvinceSuggestion,
+   searchRegioniSuggestion,
+   handleClickSuggestion
 }: DashboardProps) => {
    return (
       <>
          <div className="row">
             <div className="col-sm-12">
             <div className="search-container">
-                     <form className="row" onSubmit={handleClickSearch}>
+                     <form className="row" onSubmit={handleClickSearch} autoComplete="off">
                         <div className="col-sm-12 col-md-4">
                            <label 
                               className={`search-label  ${searchProvince ? "disabled" : ""}`}
@@ -66,6 +72,15 @@ const Dashboard = ({
                                  onChange={handleSearchRegion}
                                  />
                            </label>
+                           {searchRegioniSuggestion.length > 0 && (
+                              <ul>
+                                 {searchRegioniSuggestion.map((search: string, index: number) => (
+                                    <li key={index} onClick={() => { handleClickSuggestion(search, "regioni") }}>
+                                       {search}
+                                    </li>
+                                 ))}
+                              </ul>
+                           )}
                         </div>
                         <div className="col-sm-12 col-md-4">
                            <label 
@@ -81,6 +96,15 @@ const Dashboard = ({
                                  onChange={handleSearchProvince}
                                  />
                            </label>
+                           {searchProvinceSuggestion.length > 0 && (
+                              <ul>
+                                 {searchProvinceSuggestion.map((search: string, index: number) => (
+                                    <li key={index} onClick={() => { handleClickSuggestion(search, "province") }}>
+                                       {search}
+                                    </li>
+                                 ))}
+                              </ul>
+                           )}
                         </div>
                         <div className="col-sm-12 col-md-4">
                            <button 
