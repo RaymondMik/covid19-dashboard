@@ -41,8 +41,8 @@ const Daily = ({
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={selectedData} barGap="5%">
           <CartesianGrid stroke="#636363" strokeDasharray="3 3" />
-          <XAxis dataKey="name" stroke="#ccc"/>
-          <YAxis stroke="#ccc" />
+          <XAxis dataKey="name" stroke="#eee"/>
+          <YAxis stroke="#eee" />
           <Tooltip contentStyle={{backgroundColor: "#282c34"}}/>
           <Bar dataKey="totale_positivi" name={localisation.positives} barSize={60} fill={COLORS[0]} />
           <Bar dataKey="dimessi_guariti" name={localisation.recovered} barSize={60} fill={COLORS[1]} />
