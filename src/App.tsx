@@ -22,13 +22,14 @@ function App (props: any) {
   const [dataSetTitle, setDataSetTitle] = useState<string>("");
   const [searchRegioni, setSearchRegioni] = useState<string>("");
   const [searchProvince, setSearchProvince] = useState<string>("");
+  const [searchProvinceSuggestion, setSearchProvinceSuggestion] = useState<string[]>([]);
+  const [searchRegioniSuggestion, setSearchRegioniSuggestion] = useState<string[]>([]);
   const [selectedDateDaily, setSelectedDateDaily] = useState<string>("");
   const [selectedDatePositive, setSelectedDatePositive] = useState<string>("");
   const [hideForProvince, setHideForProvince] = useState<boolean>(false);
   const [isMobileNavOpen, setMobileNavOpen] =  useState<boolean>(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>("IT");
-  const [searchProvinceSuggestion, setSearchProvinceSuggestion] = useState<string[]>([]);
-  const [searchRegioniSuggestion, setSearchRegioniSuggestion] = useState<string[]>([]);
+
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasErrored, setHasErrored] = useState<boolean>(false);
@@ -46,6 +47,11 @@ function App (props: any) {
     } else {
       fetchData = "andamento-nazionale";
     }
+
+    setSearchRegioni("");
+    setSearchProvince("");
+    setSearchRegioniSuggestion([]);
+    setSearchProvinceSuggestion([]);
 
     fetch(`${API_URL}-${fetchData}.json`)
       .then(response => {
