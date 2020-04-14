@@ -112,7 +112,9 @@ const Dashboard = ({
                         </button>
                      </div>
                   </form>
-                  {!isLoading && !hasErrored && noData && (<span>Dati non disponibili</span>)}
+                        {!isLoading && !hasErrored && noData && (
+                           <span>Dati non trovati!</span>
+                        )}
                </div>
                <header className="panel">
                   <div className="row">

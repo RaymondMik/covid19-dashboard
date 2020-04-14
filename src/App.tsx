@@ -209,6 +209,9 @@ function App (props: any) {
           </button>
           <div className={`collapse navbar-collapse order-0 ${isMobileNavOpen ? "show" : ""}`} id="navbarNav">
             <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+                <Link className="nav-link" to="/">Home</Link>
+              </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/regioni">Regioni</Link>
               </li>

@@ -23,14 +23,16 @@ const PositiveCases = (props: any) => {
     const keys = ["isolamento_domiciliare", "ricoverati_con_sintomi", "terapia_intensiva"];
     let mappedPositiveData: any[] = [];
 
-    Object.entries(selectedData).forEach(([key, value]) => {
-      // @ts-ignore
-      const percentage: string = `${(value / selectedData.totale_positivi * 100).toFixed(2)}%`;
-      if (keys.includes(key)) {
-        mappedPositiveData[keys.indexOf(key)] = { name: formatKey(key), value, percentage };
-      }
-    });
-   
+    if (props.selectedDatePositive.length) {
+      Object.entries(selectedData).forEach(([key, value]) => {
+        // @ts-ignore
+        const percentage: string = `${(value / selectedData.totale_positivi * 100).toFixed(2)}%`;
+        if (keys.includes(key)) {
+          mappedPositiveData[keys.indexOf(key)] = { name: formatKey(key), value, percentage };
+        }
+      });
+    }
+  
     setPositiveCaseData(mappedPositiveData);
      // eslint-disable-next-line
   }, [props.selectedDatePositive])
