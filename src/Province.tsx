@@ -66,21 +66,25 @@ const Province = ({
             </div>
          </div>
          <div className="row">
-            {Object.keys(renderData).length > 0 && Object.keys(renderData).map((provincia: string, i: number) => (
-               <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
-                  <div className="details-panel">
-                     <Link to={`/province/${provincia.toLowerCase().split(" ").join("")}`}> 
-                        <div className="details-title">
-                           <h4>{provincia}</h4>
+            {Object.keys(renderData).length > 0 && (
+               Object.keys(renderData)
+                  .sort((a: string, b: string) => (provinceData[b][provinceData[b].length - 1].totale_casi - provinceData[a][provinceData[a].length - 1].totale_casi))
+                  .map((provincia: string, i: number) => (
+                     <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
+                        <div className="details-panel">
+                           <Link to={`/province/${provincia.toLowerCase().split(" ").join("")}`}> 
+                              <div className="details-title">
+                                 <h4>{provincia}</h4>
+                              </div>
+                           </Link>
+                           <div className="details-value">
+                              <small>Totale casi: </small>
+                              <p>{provinceData[provincia][provinceData[provincia].length - 1].totale_casi}</p>
+                           </div>
                         </div>
-                     </Link>
-                     <div className="details-value">
-                        <small>Totale casi: </small>
-                        <p>{provinceData[provincia][provinceData[provincia].length - 1].totale_casi}</p>
                      </div>
-                  </div>
-               </div>
-            ))}
+                  )
+               ))}
          </div>
       </div>
    );
