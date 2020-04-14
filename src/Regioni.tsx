@@ -51,17 +51,7 @@ const Regioni = ({
          setFilteredRegioniData(filteredRegions);
       } 
    }
-
-   // const regioniAggregated: any = {};
-
-   // data.forEach((datum: any, i: number) => {
-   //    if (!regioniAggregated[datum.denominazione_regione]) {
-   //       regioniAggregated[datum.denominazione_regione] = [ datum ];
-   //    } else {
-   //       regioniAggregated[datum.denominazione_regione].push(datum);
-   //    }
-   // });
-
+   
    const renderData = Object.keys(filteredRegioniData).length ? filteredRegioniData : regioniData;
 
    return (
@@ -79,29 +69,30 @@ const Regioni = ({
             </div>
          </div>
          <div className="row">
-            {Object.keys(renderData).length > 0 && Object.keys(renderData).map((regione: string, i: number) => {
-               return (
-                  <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
-                     <div className="details-panel">
-                        <Link to={`/regioni/${regione.toLowerCase().split(" ").join("")}`}> 
-                           <div className="details-title">
-                              <h4>{regione}</h4>
+            {Object.keys(renderData).length > 0 && (
+               Object.keys(renderData)
+                  .sort((a: string, b: string) => (regioniData[b][regioniData[b].length - 1].totale_casi - regioniData[a][regioniData[a].length - 1].totale_casi))
+                  .map((regione: string, i: number) => (
+                     <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
+                        <div className="details-panel">
+                           <Link to={`/regioni/${regione.toLowerCase().split(" ").join("")}`}> 
+                              <div className="details-title">
+                                 <h4>{regione}</h4>
+                              </div>
+                           </Link>
+                           <div className="details-value">
+                              <small>Totale casi: </small>
+                              <p>{regioniData[regione][regioniData[regione].length - 1].totale_casi}</p>
+                              <Evolution
+                                 data={regioniData[regione]}
+                                 COLORS={COLORS}
+                                 localisation={localisation}
+                                 cssClass="situation-evolution-sm"
+                              />
                            </div>
-                        </Link>
-                        <div className="details-value">
-                           <small>Totale casi: </small>
-                           <p>{regioniData[regione][regioniData[regione].length - 1].totale_casi}</p>
-                           <Evolution
-                              data={regioniData[regione]}
-                              COLORS={COLORS}
-                              localisation={localisation}
-                              cssClass="situation-evolution-sm"
-                           />
                         </div>
                      </div>
-                  </div>
-               )
-            })}
+                  )))}
          </div>
       </div>
    );
