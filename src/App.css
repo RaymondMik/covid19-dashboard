@@ -158,7 +158,7 @@ h4 {
 }
 
 .search-suggestion li:hover {
-  color: green;
+  color: #009688;
   font-weight: bold;
 }
 
