@@ -329,8 +329,8 @@ a > .details-title > h4:hover {
   margin-bottom: 20px;
 }
 
-.built-by {
-  font-size: .70em;
+.footer-info {
+  font-size: .8em;
   color: #eee;
 }
 

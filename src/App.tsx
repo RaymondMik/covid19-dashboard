@@ -4,18 +4,21 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import CookieConsent from "react-cookie-consent";
+import ReactGA from 'react-ga';
 
 import Dashboard from "./dashboard";
 import Regioni from "./Regioni";
 import Province from "./Province";
 import SourceLink from "./SourceLink";
+import CookiePolicy from "./CookiePolicy";
 
 import './App.css';
 import { normalizeSearchStr } from "./utils";
 
 import * as L from "./localisation.json";
-import * as S from "./static.json";
-import virus from "./icons/virus.svg";
+import * as StaticRegioniProvinceNames from "./static.json";
+import virusIcon from "./icons/virusIcon.svg";
 
 function App (props: any) {
   const [data, setData] = useState<any>([]);
@@ -29,29 +32,28 @@ function App (props: any) {
   const [hideForProvince, setHideForProvince] = useState<boolean>(false);
   const [isMobileNavOpen, setMobileNavOpen] =  useState<boolean>(false);
   const [currentLanguage, setCurrentLanguage] = useState<string>("IT");
-
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasErrored, setHasErrored] = useState<boolean>(false);
   const [noData, setNoData] = useState<boolean>(false);
 
   const COLORS = ["#009688", "#f8f9fa", "#E64759"];
+  const COOKIE = "cvd19daticookie";
   const API_URL = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita";
+  const urlPathName = props.location.pathname.split("/");
 
   useEffect(() => {
     let fetchData: string = "";
-    const urlPathName = props.location.pathname.split("/");
+
+    setSearchRegioni("");
+    setSearchProvince("");
+    setSearchRegioniSuggestion([]);
+    setSearchProvinceSuggestion([]);
 
     if (urlPathName[1] === "regioni" || urlPathName[1] === "province") {
       fetchData = urlPathName[1];
     } else {
       fetchData = "andamento-nazionale";
     }
-
-    setSearchRegioni("");
-    setSearchProvince("");
-    setSearchRegioniSuggestion([]);
-    setSearchProvinceSuggestion([]);
 
     fetch(`${API_URL}-${fetchData}.json`)
       .then(response => {
@@ -115,6 +117,17 @@ function App (props: any) {
       });
   }, [props.location.pathname, props.history]);
 
+  useEffect(() => {
+    if (document.cookie.includes(COOKIE)) {
+      initializeGA();
+    }
+  }, []);
+
+  const initializeGA = () => {
+    const trackingId = "UA-167513829-1";
+    ReactGA.initialize(trackingId);
+  }
+
   const handleSearchRegion = (e: any) => {
     if (searchProvince.length > 0) {
       setSearchProvince("");
@@ -122,7 +135,7 @@ function App (props: any) {
 
     const matches:string[] = [];
 
-    S.regioni.forEach((regione: string) => {
+    StaticRegioniProvinceNames.regioni.forEach((regione: string) => {
       if (e.target.value.length > 0 && regione.toLowerCase().startsWith(e.target.value.trim().toLowerCase())) {
         matches.push(regione);
       } 
@@ -141,7 +154,7 @@ function App (props: any) {
 
     const matches:string[] = [];
 
-    S.provincie.forEach((provincia: string) => {
+    StaticRegioniProvinceNames.provincie.forEach((provincia: string) => {
       if (e.target.value.length > 0 && provincia.toLowerCase().startsWith(e.target.value.trim().toLowerCase())) {
         matches.push(provincia);
       } 
@@ -180,8 +193,6 @@ function App (props: any) {
 
   const handlePositiveSelect = (e: any) => setSelectedDatePositive(e.target.value);
 
-  // const handleChangeLang = (lang: string) => setCurrentLanguage(lang)
-
   const toggleMobileNavbar = () => setMobileNavOpen(!isMobileNavOpen);
 
   //@ts-ignore
@@ -192,7 +203,7 @@ function App (props: any) {
       <nav className="navbar navbar-dark navbar-expand-md bg-dark justify-content-between sitenav">
         <div className="container">
           <Link to="/" className="navbar-brand site-title-container">
-            <img src={virus} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
+            <img src={virusIcon} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
             <h2>{localisation.title}</h2>
           </Link>
           <button 
@@ -222,20 +233,6 @@ function App (props: any) {
           </div>
         </div>
       </nav>
-      {/* <div>
-        <span 
-          className={`language-selection ${currentLanguage === "IT" ? "selected" : ""}`}
-          onClick={() => handleChangeLang("IT")}
-        >
-            IT
-        </span>
-        <span 
-          className={`language-selection ${currentLanguage === "EN" ? "selected" : ""}`}
-          onClick={() => handleChangeLang("EN")}
-        >
-          EN EN
-        </span>
-      </div> */}
       
       <div className="container content">
         {isLoading && !hasErrored && (<div className="loading"></div>)}
@@ -254,6 +251,11 @@ function App (props: any) {
               <Province 
                 data={data}
                 localisation={localisation}
+              />
+            </Route>
+            <Route exact path="/cookie-policy">
+              <CookiePolicy
+                cookie={COOKIE}
               />
             </Route>
             <Route path={["/", "/province/:provinceId", "/regioni/:regioneId"]}>
@@ -284,8 +286,24 @@ function App (props: any) {
         )}
         <SourceLink
           localisation={localisation}
+          urlPathName={urlPathName}
         />
       </div>
+      <CookieConsent
+        acceptOnScroll={true}
+        acceptOnScrollPercentage={50}
+        onAccept={() => {
+          initializeGA();
+        }}
+        location="bottom"
+        buttonText="ACCETTO"
+        cookieName={COOKIE}
+        style={{ background: "#2B373B" }}
+        buttonStyle={{ backgroundColor: "#2B373B", color: "#fff", fontSize: "1em" }}
+        expires={365}
+      >
+        <span style={{ fontSize: ".9em" }}>Questo sito utilizza cookie tecnici di terze parti, <Link to="/cookie-policy">clicca qui</Link> per saperne di più. Chiudendo questo banner o scorrendo questa pagina acconsenti all'uso dei cookie.</span>
+      </CookieConsent>
     </div>
   );
 }
