@@ -14,7 +14,6 @@ const Regioni = ({
    data,
    localisation
 }: RegioniProps) => {
-   console.log(444, data);
    const [regioniData, setRegioniData] = useState<any>({});
    const [filteredRegioniData, setFilteredRegioniData] = useState<any>({});
    const [regioniNames, setRegioniNames] = useState<any>([]);
@@ -71,7 +70,7 @@ const Regioni = ({
             </div>
          </div>
          <div className="row">
-            {Object.keys(renderData).length > 0 && (
+            {Object.keys(renderData).length > 0 ? (
                Object.keys(renderData)
                   .sort((a: string, b: string) => (regioniData[b][regioniData[b].length - 1].totale_casi - regioniData[a][regioniData[a].length - 1].totale_casi))
                   .map((regione: string, i: number) => (
@@ -94,7 +93,9 @@ const Regioni = ({
                            </div>
                         </div>
                      </div>
-                  )))}
+            ))) : (
+               <div className="loading"></div>
+            )}
          </div>
       </div>
    );
