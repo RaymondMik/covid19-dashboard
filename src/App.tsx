@@ -30,6 +30,11 @@ const initialState: InitialState = {
 
 function reducer (state: InitialState, action: any) {
   switch (action.type) {
+    case "FETCH_DATA":
+      return {
+        ...state,
+        isLoading: true
+      }
     case "SET_REGIONI":
       return {
         ...state,
@@ -132,6 +137,8 @@ function App (props: RouteComponentProps<TParams>) {
       fetchData = "andamento-nazionale";
     }
 
+    dispatch({ type: "FETCH_DATA" });
+
     fetch(`${API_URL}-${fetchData}.json`)
       .then(response => {
         if (!response.ok) {
@@ -215,9 +222,15 @@ function App (props: RouteComponentProps<TParams>) {
     if (type === "province") {
       setSearchProvince(suggestion);
       setSearchProvinceSuggestion([]);
+      if (suggestion.length > 0) {
+        props.history.push(`/province/${normalizeSearchStr(suggestion)}`);
+      }
     } else {
       setSearchRegioni(suggestion);
       setSearchRegioniSuggestion([]);
+      if (suggestion.length > 0) {
+        props.history.push(`/regioni/${normalizeSearchStr(suggestion)}`);
+      }
     }
   }
 
