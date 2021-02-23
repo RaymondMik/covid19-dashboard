@@ -5,13 +5,10 @@ import {
   Link,
   RouteComponentProps
 } from "react-router-dom";
-import CookieConsent from "react-cookie-consent";
-import ReactGA from 'react-ga';
 import Dashboard from "./dashboard";
 import Regioni from "./routes/Regioni";
 import Province from "./routes/Province";
 import SourceLink from "./SourceLink";
-import CookiePolicy from "./CookiePolicy";
 import './App.css';
 import { normalizeSearchStr } from "./utils";
 import * as L from "./localisation.json";
@@ -176,17 +173,6 @@ function App (props: RouteComponentProps<TParams>) {
       });
   }, [props.location.pathname, props.history]);
 
-  useEffect(() => {
-    if (document.cookie.includes(COOKIE)) {
-      initializeGA();
-    }
-  }, []);
-
-  const initializeGA = () => {
-    const trackingId = "UA-167513829-1";
-    ReactGA.initialize(trackingId);
-  }
-
   const handleSearchRegion = (e: any) => {
     if (searchProvince.length > 0) {
       setSearchProvince("");
@@ -312,11 +298,6 @@ function App (props: RouteComponentProps<TParams>) {
                 localisation={localisation}
               />
             </Route>
-            <Route exact path="/cookie-policy">
-              <CookiePolicy
-                cookie={COOKIE}
-              />
-            </Route>
             <Route path={["/", "/province/:provinceId", "/regioni/:regioneId"]}>
               <Dashboard
                 COLORS={COLORS}
@@ -348,21 +329,6 @@ function App (props: RouteComponentProps<TParams>) {
           urlPathName={urlPathName}
         />
       </div>
-      <CookieConsent
-        acceptOnScroll={true}
-        acceptOnScrollPercentage={50}
-        onAccept={() => {
-          initializeGA();
-        }}
-        location="bottom"
-        buttonText="ACCETTO"
-        cookieName={COOKIE}
-        style={{ background: "#2B373B" }}
-        buttonStyle={{ backgroundColor: "#2B373B", color: "#fff", fontSize: "1em" }}
-        expires={365}
-      >
-        <span style={{ fontSize: ".9em" }}>Questo sito utilizza cookie tecnici di terze parti, <Link to="/cookie-policy">clicca qui</Link> per saperne di più. Chiudendo questo banner o scorrendo questa pagina acconsenti all'uso dei cookie.</span>
-      </CookieConsent>
     </div>
   );
 }

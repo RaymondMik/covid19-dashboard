@@ -19,7 +19,6 @@ const SourceLink = ({ localisation, urlPathName }: SourceLinkProps) => (
          </a>
          {localisation.disclaimer[2]}
       </p>
-      {urlPathName[1] !== "cookie-policy" && <span className="footer-info"><Link to="/cookie-policy">Cookie Policy</Link></span >}
       
       {/* <span className="footer-info"><a href="https://twitter.com/RMiklus" target="blank"> - Built by</a></span > */}
    </>
