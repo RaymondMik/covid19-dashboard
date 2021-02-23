@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Evolution from "./dashboard/Evolution";
+import Evolution from "../dashboard/Evolution";
+import { Data } from "../types";
 
 interface RegioniProps {
-   COLORS: string[]
-   data: any
-   localisation: any
+   COLORS: string[];
+   data: Data[];
+   localisation: any;
 }
 
 const Regioni = ({
@@ -13,6 +14,7 @@ const Regioni = ({
    data,
    localisation
 }: RegioniProps) => {
+   console.log(444, data);
    const [regioniData, setRegioniData] = useState<any>({});
    const [filteredRegioniData, setFilteredRegioniData] = useState<any>({});
    const [regioniNames, setRegioniNames] = useState<any>([]);

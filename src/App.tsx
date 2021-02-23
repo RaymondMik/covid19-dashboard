@@ -1,40 +1,120 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import {
   Switch,
   Route,
-  Link
+  Link,
+  RouteComponentProps
 } from "react-router-dom";
 import CookieConsent from "react-cookie-consent";
 import ReactGA from 'react-ga';
-
 import Dashboard from "./dashboard";
-import Regioni from "./Regioni";
-import Province from "./Province";
+import Regioni from "./routes/Regioni";
+import Province from "./routes/Province";
 import SourceLink from "./SourceLink";
 import CookiePolicy from "./CookiePolicy";
-
 import './App.css';
 import { normalizeSearchStr } from "./utils";
-
 import * as L from "./localisation.json";
 import * as StaticRegioniProvinceNames from "./static.json";
 import virusIcon from "./icons/virusIcon.svg";
+import { InitialState } from "./types";
 
-function App (props: any) {
-  const [data, setData] = useState<any>([]);
-  const [dataSetTitle, setDataSetTitle] = useState<string>("");
+const initialState: InitialState = { 
+  data: [],
+  dataSetTitle: "",
+  selectedDateDaily: "",
+  selectedDatePositive: "",
+  hideForProvince: false,
+  currentLanguage: "IT",
+  isLoading: false,
+  hasErrored: false,
+  noData: false
+}
+
+function reducer (state: InitialState, action: any) {
+  switch (action.type) {
+    case "SET_REGIONI":
+      return {
+        ...state,
+        data: action.payload,
+        selectedDateDaily: action.payload[action.payload.length - 1].data,
+        selectedDatePositive: action.payload[action.payload.length - 1].data,
+        dataSetTitle: action.payload[action.payload.length - 1].denominazione_regione,
+        hideForProvince: false,
+        noData: false,
+        isLoading: false
+      }
+    case "SET_PROVINCE":
+      return {
+        ...state,
+        data: action.payload,
+        selectedDateDaily: action.payload[action.payload.length - 1].data,
+        selectedDatePositive: action.payload[action.payload.length - 1].data,
+        dataSetTitle: action.payload[action.payload.length - 1].denominazione_provincia,
+        hideForProvince: true,
+        noData: false,
+        isLoading: false
+      }
+    case "SET_ITALIA":
+      return {
+        ...state,
+        data: action.payload,
+        dataSetTitle: "Italia",
+        selectedDateDaily: action.payload[action.payload.length - 1].data,
+        selectedDatePositive: action.payload[action.payload.length - 1].data,
+        hideForProvince: false,
+        noData: false,
+        isLoading: false      
+      }
+    case "SET_NO_DATA":
+      return {
+        ...state,
+        isLoading: false,
+        noData: true
+      }
+    case "HAS_ERRORED":
+      return {
+        ...state,
+        isLoading: false,
+        hasErrored: true      
+      }
+    case "SET_SELECTED_DAILY":
+      return {
+        ...state,
+        selectedDateDaily: action.payload
+      }
+    case "SET_SELECTED_DATE_POSITIVE":
+      return {
+        ...state,
+        selectedDatePositive: action.payload
+      }
+    default:
+      return state;
+  }
+}
+
+type TParams = { id: string };
+
+function App (props: RouteComponentProps<TParams>) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const {
+    data,
+    dataSetTitle,
+    selectedDateDaily,
+    selectedDatePositive,
+    hideForProvince,
+    currentLanguage,
+    isLoading,
+    hasErrored,
+    noData
+  } = state;
+
   const [searchRegioni, setSearchRegioni] = useState<string>("");
   const [searchProvince, setSearchProvince] = useState<string>("");
   const [searchProvinceSuggestion, setSearchProvinceSuggestion] = useState<string[]>([]);
   const [searchRegioniSuggestion, setSearchRegioniSuggestion] = useState<string[]>([]);
-  const [selectedDateDaily, setSelectedDateDaily] = useState<string>("");
-  const [selectedDatePositive, setSelectedDatePositive] = useState<string>("");
-  const [hideForProvince, setHideForProvince] = useState<boolean>(false);
-  const [isMobileNavOpen, setMobileNavOpen] =  useState<boolean>(false);
-  const [currentLanguage, setCurrentLanguage] = useState<string>("IT");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [hasErrored, setHasErrored] = useState<boolean>(false);
-  const [noData, setNoData] = useState<boolean>(false);
+  const [isMobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
 
   const COLORS = ["#009688", "#f8f9fa", "#E64759"];
   const COOKIE = "cvd19daticookie";
@@ -72,16 +152,9 @@ function App (props: any) {
           }
 
           if (!filteredData.length) {
-            setNoData(true);
-            setIsLoading(false);
+            dispatch({ type: "SET_NO_DATA" });
           } else {
-            setData(filteredData);
-            setSelectedDateDaily(filteredData[filteredData.length - 1].data);
-            setSelectedDatePositive(filteredData[filteredData.length - 1].data);
-            setDataSetTitle(filteredData[filteredData.length - 1].denominazione_regione);
-            setHideForProvince(false);
-            setNoData(false);
-            setIsLoading(false);
+            dispatch({ type: "SET_REGIONI", payload: filteredData });
           }  
         } else if (urlPathName[1] === "province") {
           if (urlPathName[2]) {
@@ -89,31 +162,17 @@ function App (props: any) {
           }
 
           if (!filteredData.length) {
-            setNoData(true);
-            setIsLoading(false);
+            dispatch({ type: "SET_NO_DATA" });
           } else {
-            setData(filteredData);
-            setSelectedDateDaily(filteredData[filteredData.length - 1].data);
-            setSelectedDatePositive(filteredData[filteredData.length - 1].data);
-            setDataSetTitle(filteredData[filteredData.length - 1].denominazione_provincia);
-            setHideForProvince(true);
-            setNoData(false);
-            setIsLoading(false);
+            dispatch({ type: "SET_PROVINCE", payload: filteredData });
           }
         } else {
-          setData(filteredData);
-          setSelectedDateDaily(filteredData[filteredData.length - 1].data);
-          setSelectedDatePositive(filteredData[filteredData.length - 1].data);
-          setDataSetTitle("Italia");
-          setHideForProvince(false);
-          setNoData(false);
-          setIsLoading(false);
+          dispatch({ type: "SET_ITALIA", payload: filteredData });
         }     
       })
       .catch((e) => {
         console.error(e);
-        setHasErrored(true);
-        setIsLoading(false);
+        dispatch({ type: "HAS_ERRORED" });
       });
   }, [props.location.pathname, props.history]);
 
@@ -189,9 +248,9 @@ function App (props: any) {
     }
   }
 
-  const handleDailySelect = (e: any) => setSelectedDateDaily(e.target.value);
+  const handleDailySelect = (e: any) => dispatch({ type: "SET_SELECTED_DAILY", payload: e.target.value });
 
-  const handlePositiveSelect = (e: any) => setSelectedDatePositive(e.target.value);
+  const handlePositiveSelect = (e: any) => dispatch({ type: "SET_SELECTED_DATE_POSITIVE", payload: e.target.value });
 
   const toggleMobileNavbar = () => setMobileNavOpen(!isMobileNavOpen);
 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 interface SourceLinkProps {
    localisation: any;
-   urlPathName: string;
+   urlPathName: string[];
 }
 
 const SourceLink = ({ localisation, urlPathName }: SourceLinkProps) => (

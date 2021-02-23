@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Data } from "../types";
 
 interface ProvinceProps {
-   data: any
+   data: Data[];
    localisation: any
 }
 
 const Province = ({
-   data,
-   localisation
+   data
 }: ProvinceProps) => {
    const [provinceData, setProvinceData] = useState<any>({});
    const [filteredProvinceData, setFilteredProvinceData] = useState<any>({});
@@ -70,20 +70,21 @@ const Province = ({
                Object.keys(renderData)
                   .sort((a: string, b: string) => (provinceData[b][provinceData[b].length - 1].totale_casi - provinceData[a][provinceData[a].length - 1].totale_casi))
                   .map((provincia: string, i: number) => (
-                     <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
-                        <div className="details-panel">
-                           <Link to={`/province/${provincia.toLowerCase().split(" ").join("")}`}> 
-                              <div className="details-title">
-                                 <h4>{provincia}</h4>
+                     provincia !== "Fuori Regione / Provincia Autonoma" && (
+                        <div className="col-sm-12 col-md-6 col-lg-4 details-panel-wrapper" key={i}>
+                           <div className="details-panel">
+                              <Link to={`/province/${provincia.toLowerCase().split(" ").join("")}`}> 
+                                 <div className="details-title">
+                                    <h4>{provincia}</h4>
+                                 </div>
+                              </Link>
+                              <div className="details-value">
+                                 <small>Totale casi: </small>
+                                 <p>{provinceData[provincia][provinceData[provincia].length - 1].totale_casi}</p>
                               </div>
-                           </Link>
-                           <div className="details-value">
-                              <small>Totale casi: </small>
-                              <p>{provinceData[provincia][provinceData[provincia].length - 1].totale_casi}</p>
                            </div>
                         </div>
-                     </div>
-                  )
+                  ))
                ))}
          </div>
       </div>
