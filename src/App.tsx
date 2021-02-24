@@ -129,8 +129,6 @@ function App (props: RouteComponentProps<TParams>) {
   const API_URL = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita";
   const VACCINI_API_URL = "https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/somministrazioni-vaccini-summary-latest.json";
 
-  const urlPathName = props.location.pathname.split("/");
-
   useEffect(() => {
     let fetchData: string = "";
 
@@ -138,6 +136,8 @@ function App (props: RouteComponentProps<TParams>) {
     setSearchProvince("");
     setSearchRegioniSuggestion([]);
     setSearchProvinceSuggestion([]);
+
+    const urlPathName = props.location.pathname.split("/");
 
     if (urlPathName[1] === "regioni" || urlPathName[1] === "province") {
       fetchData = urlPathName[1];
@@ -387,7 +387,7 @@ function App (props: RouteComponentProps<TParams>) {
         )}
         <SourceLink
           localisation={localisation}
-          urlPathName={urlPathName}
+          urlPathName={props.location.pathname.split("/")}
         />
       </div>
     </div>
