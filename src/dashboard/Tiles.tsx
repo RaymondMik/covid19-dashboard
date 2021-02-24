@@ -12,7 +12,10 @@ const Tiles = ({
    data,
    localisation,
    totaleDosiVaccino
-}: TilesProps) => (
+}: TilesProps) => {
+  const isRegione = window.location.pathname.split("/")[1] === "regioni";
+
+  return (
   <>
     <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
       <div className="details-panel">
@@ -28,17 +31,31 @@ const Tiles = ({
         </div>
       </div>
     </div>
-    <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
-      <div className="details-panel">
-        <div className="details-title">
-          <h4>{localisation.vaccinated}</h4>
-        </div>
-        <div className="details-value">
-          <p>{totaleDosiVaccino.toLocaleString("it")}</p>
-          <span className="value-difference">-</span>
+    {isRegione ? (
+      <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
+        <div className="details-panel">
+          <div className="details-title">
+            <h4>{localisation.recovered}</h4>
+          </div>
+          <div className="details-value">
+            <p>{data[data.length -1].dimessi_guariti.toLocaleString("it")}</p>
+            <span className="value-difference">({getDailyIncrement(data[data.length -2].dimessi_guariti, data[data.length -1].dimessi_guariti)})</span>
+          </div>
         </div>
       </div>
-    </div>
+    ) : (
+      <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
+        <div className="details-panel">
+          <div className="details-title">
+            <h4>{localisation.vaccinated}</h4>
+          </div>
+          <div className="details-value">
+            <p>{totaleDosiVaccino.toLocaleString("it")}</p>
+            <span className="value-difference">-</span>
+          </div>
+        </div>
+      </div>
+    )}
     <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
       <div className="details-panel">
         <div className="details-title">
@@ -84,6 +101,6 @@ const Tiles = ({
       </div>
     </div>
   </>
-);
+);}
 
 export default Tiles;
