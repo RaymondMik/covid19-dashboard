@@ -26,14 +26,19 @@ export interface Data {
    variazione_totale_positivi: number;
 }
 
+export interface FormattedVaccini {
+  [key: string]: number;
+}
+
 export interface InitialState {
-  data: Data[],
-  dataSetTitle: string,
-  selectedDateDaily: string,
-  selectedDatePositive: string,
-  hideForProvince: boolean,
-  currentLanguage: string,
-  isLoading: boolean,
-  hasErrored: boolean,
-  noData: boolean
+  data: Data[];
+  totaleDosiVaccino: number | null;
+  dataSetTitle: string;
+  selectedDateDaily: string;
+  selectedDatePositive: string;
+  hideForProvince: boolean;
+  currentLanguage: string;
+  isLoading: boolean;
+  hasErrored: boolean;
+  noData: boolean;
 }

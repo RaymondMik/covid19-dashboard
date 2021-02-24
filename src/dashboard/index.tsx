@@ -5,12 +5,14 @@ import Evolution from "./Evolution";
 import Daily from "./Daily";
 import PositiveCases from "./PositiveCases";
 import SearchSuggestion from "./SearchSuggestion";
+import { Data } from "../types";
 
 import { parseDate } from "../utils";
 
 interface DashboardProps {
    COLORS: string[];
-   data: any;
+   data: Data[];
+   totaleDosiVaccino: number;
    dataSetTitle: string,
    handleDailySelect: (e: any) => void;
    hideForProvince: boolean,
@@ -34,6 +36,7 @@ interface DashboardProps {
 const Dashboard = ({
    COLORS,
    data,
+   totaleDosiVaccino,
    dataSetTitle,
    hideForProvince,
    handleClickSearch,
@@ -129,9 +132,9 @@ const Dashboard = ({
                      </div>
                      <div className="col-xs-12 col-md-6">
                         <div className="title-details">
-                           <p>Casi totali: {data[data.length - 1].totale_casi}</p>
+                           <p>Casi totali: {data[data.length - 1].totale_casi.toLocaleString("it")}</p>
                            {!hideForProvince ? (
-                              <p>Tamponi totali: {data[data.length - 1].tamponi}</p>
+                              <p>Tamponi totali: {data[data.length - 1].tamponi.toLocaleString("it")}</p>
                            ) : (
                               <small>Per le province sono disponibili solo i casi totali</small>
                            )}
@@ -146,6 +149,7 @@ const Dashboard = ({
             {!hideForProvince && (
                <Tiles 
                   data={data}
+                  totaleDosiVaccino={totaleDosiVaccino}
                   localisation={localisation}
                />
             )}

@@ -1,14 +1,17 @@
 import React  from "react";
 import { getDailyIncrement } from "../utils";
+import { Data } from "../types";
 
 interface TilesProps {
-   data: any
-   localisation: any
+   data: Data[];
+   localisation: any;
+   totaleDosiVaccino: number;
  }
 
 const Tiles = ({
    data,
-   localisation
+   localisation,
+   totaleDosiVaccino
 }: TilesProps) => (
   <>
     <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
@@ -17,19 +20,22 @@ const Tiles = ({
           <h4>{localisation.positives}</h4>
         </div>
         <div className="details-value">
-          <p>{data[data.length -1].totale_positivi}</p>
-          <span className="value-difference">({getDailyIncrement(data[data.length -2].totale_positivi, data[data.length -1].totale_positivi)})</span>
+          <p>{data[data.length -1].totale_positivi.toLocaleString("it")}</p>
+      
+          <span className="value-difference">
+            ({getDailyIncrement(data[data.length -2].totale_positivi, data[data.length -1].totale_positivi, false)})
+          </span>
         </div>
       </div>
     </div>
     <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
       <div className="details-panel">
         <div className="details-title">
-          <h4>{localisation.recovered}</h4>
+          <h4>{localisation.vaccinated}</h4>
         </div>
         <div className="details-value">
-          <p>{data[data.length -1].dimessi_guariti}</p>
-          <span className="value-difference">({getDailyIncrement(data[data.length -2].dimessi_guariti, data[data.length -1].dimessi_guariti)})</span>
+          <p>{totaleDosiVaccino.toLocaleString("it")}</p>
+          <span className="value-difference">-</span>
         </div>
       </div>
     </div>
@@ -39,7 +45,7 @@ const Tiles = ({
           <h4>{localisation.deaths}</h4>
         </div>
         <div className="details-value">
-          <p>{data[data.length -1].deceduti}</p>
+          <p>{data[data.length -1].deceduti.toLocaleString("it")}</p>
           <span className="value-difference">({getDailyIncrement(data[data.length -2].deceduti, data[data.length -1].deceduti)})</span>
         </div>
       </div>
@@ -50,7 +56,7 @@ const Tiles = ({
           <h4>{localisation.totalHospitalized}</h4>
         </div>
         <div className="details-value">
-          <p>{data[data.length -1].totale_ospedalizzati}</p>
+          <p>{data[data.length -1].totale_ospedalizzati.toLocaleString("it")}</p>
           <span className="value-difference">({getDailyIncrement(data[data.length -2].totale_ospedalizzati, data[data.length -1].totale_ospedalizzati)})</span>
         </div>
       </div>

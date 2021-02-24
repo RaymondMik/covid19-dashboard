@@ -1,5 +1,5 @@
 import React from "react";
-import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
 
 interface EvolutionProps {
   COLORS: string[];
@@ -34,27 +34,28 @@ const Evolution = ({
             <YAxis stroke="#eee" />
             <Tooltip contentStyle={{backgroundColor: "#282c34"}}/>
             <Legend 
-            iconType={"plainline"}
-            iconSize={12}
+              iconType={"plainline"}
+              iconSize={12}
             />
             <Line type="monotone" dataKey="totale_casi" dot={false} strokeWidth={3} name={data.data} stroke={COLORS[1]} />
           </LineChart>
         </ResponsiveContainer>
       ) : (
         <ResponsiveContainer>
-          <LineChart data={mappedData}
+          <LineChart 
+            data={mappedData}
             margin={{ top: 5, right: 30, left: 20, bottom: 0 }}
-            >
+          >
             <CartesianGrid stroke="#636363" strokeDasharray="3 3" />
-            <XAxis dataKey="name" stroke="#eee"/>
-            <YAxis stroke="#eee" />
+            <XAxis dataKey="name" stroke="#eee" tick={{fontSize: 12}} />
+            <YAxis stroke="#eee" tick={{fontSize: 12}} />
             <Tooltip contentStyle={{backgroundColor: "#282c34"}}/>
             <Legend 
               iconType={"plainline"}
-              iconSize={12}
+              iconSize={35}
             />
             <Line type="monotone" dataKey="totale_positivi" dot={false} strokeWidth={3} name={data.data} stroke={COLORS[0]} />
-            <Line type="monotone" dataKey="dimessi_guariti" dot={false} strokeWidth={3} name={data.data} stroke={COLORS[1]} />
+            <Line type="monotone" dataKey="totale_dosi_vaccino" dot={false} strokeWidth={2} name={data.data} stroke={COLORS[1]} />
             <Line type="monotone" dataKey="deceduti" dot={false} strokeWidth={3} name={data.data} stroke={COLORS[2]} />
           </LineChart>
         </ResponsiveContainer>

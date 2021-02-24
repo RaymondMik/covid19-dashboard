@@ -14,10 +14,11 @@ import { normalizeSearchStr } from "./utils";
 import * as L from "./localisation.json";
 import * as StaticRegioniProvinceNames from "./static.json";
 import virusIcon from "./icons/virusIcon.svg";
-import { InitialState } from "./types";
+import { InitialState, FormattedVaccini } from "./types";
 
 const initialState: InitialState = { 
   data: [],
+  totaleDosiVaccino: null,
   dataSetTitle: "",
   selectedDateDaily: "",
   selectedDatePositive: "",
@@ -68,6 +69,11 @@ function reducer (state: InitialState, action: any) {
         noData: false,
         isLoading: false      
       }
+    case "SET_TOTALE_VACCINI":
+      return {
+        ...state,
+        totaleDosiVaccino: action.payload
+      }
     case "SET_NO_DATA":
       return {
         ...state,
@@ -102,6 +108,7 @@ function App (props: RouteComponentProps<TParams>) {
 
   const {
     data,
+    totaleDosiVaccino,
     dataSetTitle,
     selectedDateDaily,
     selectedDatePositive,
@@ -119,8 +126,9 @@ function App (props: RouteComponentProps<TParams>) {
   const [isMobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
 
   const COLORS = ["#009688", "#f8f9fa", "#E64759"];
-  const COOKIE = "cvd19daticookie";
   const API_URL = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita";
+  const VACCINI_API_URL = "https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/somministrazioni-vaccini-summary-latest.json";
+
   const urlPathName = props.location.pathname.split("/");
 
   useEffect(() => {
@@ -139,7 +147,8 @@ function App (props: RouteComponentProps<TParams>) {
 
     dispatch({ type: "FETCH_DATA" });
 
-    fetch(`${API_URL}-${fetchData}.json`)
+    // fetch vaccini data
+    fetch(VACCINI_API_URL)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -147,37 +156,75 @@ function App (props: RouteComponentProps<TParams>) {
 
         return response.json();
       })
-      .then(res => {
-        let filteredData: any = res;
+      .then((res) => {
+          const formattedVaccini: FormattedVaccini = {};
 
-        if (urlPathName[1] === "regioni") {
-          if (urlPathName[2]) {
-            filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_regione) === urlPathName[2]);
-          }
+          const totaleDosiVaccino = res.data
+            .map((item: any) => {
+              // here we also extract the data to be added to the formattedVaccini object
+              const date: string = item.data_somministrazione.split("T")[0];
+              if (!formattedVaccini[date]) {
+                formattedVaccini[date] = item.totale;
+              } else {
+                formattedVaccini[date] = formattedVaccini[date] + item.totale;
+              }
 
-          if (!filteredData.length) {
-            dispatch({ type: "SET_NO_DATA" });
-          } else {
-            dispatch({ type: "SET_REGIONI", payload: filteredData });
-          }  
-        } else if (urlPathName[1] === "province") {
-          if (urlPathName[2]) {
-            filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_provincia) === urlPathName[2]);
-          }
+              return item;
+            })
+            .reduce((accumulator: number, currentValue: any) => accumulator + currentValue.totale, 0);
 
-          if (!filteredData.length) {
-            dispatch({ type: "SET_NO_DATA" });
-          } else {
-            dispatch({ type: "SET_PROVINCE", payload: filteredData });
-          }
-        } else {
-          dispatch({ type: "SET_ITALIA", payload: filteredData });
-        }     
-      })
-      .catch((e) => {
-        console.error(e);
-        dispatch({ type: "HAS_ERRORED" });
+          dispatch({ type: "SET_TOTALE_VACCINI", payload: totaleDosiVaccino });
+
+          // fetch epidemic data
+          fetch(`${API_URL}-${fetchData}.json`)
+            .then(response => {
+              if (!response.ok) {
+                throw Error(response.statusText);
+              }
+
+              return response.json();
+            })
+            .then(res => {
+              let filteredData: any = res;
+
+              if (urlPathName[1] === "regioni") {
+                if (urlPathName[2]) {
+                  filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_regione) === urlPathName[2]);
+                }
+
+                if (!filteredData.length) {
+                  dispatch({ type: "SET_NO_DATA" });
+                } else {
+                  dispatch({ type: "SET_REGIONI", payload: filteredData });
+                }  
+              } else if (urlPathName[1] === "province") {
+                if (urlPathName[2]) {
+                  filteredData = res.filter((datum: any) => normalizeSearchStr(datum.denominazione_provincia) === urlPathName[2]);
+                }
+
+                if (!filteredData.length) {
+                  dispatch({ type: "SET_NO_DATA" });
+                } else {
+                  dispatch({ type: "SET_PROVINCE", payload: filteredData });
+                }
+              } else {
+                // add vaccini to national data only
+                const filteredDataWithVaccini = filteredData.map((item: any) => {
+                  const searchIndex = item.data.split("T")[0]
+                  if (formattedVaccini[searchIndex]) {
+                    item.totale_dosi_vaccino = formattedVaccini[searchIndex];
+                  }
+
+                  return item;
+                });
+                dispatch({ type: "SET_ITALIA", payload: filteredDataWithVaccini });
+              }     
+            })
+            .catch((e) => {
+              console.error(e);
+              dispatch({ type: "HAS_ERRORED" });
       });
+    });
   }, [props.location.pathname, props.history]);
 
   const handleSearchRegion = (e: any) => {
@@ -315,6 +362,7 @@ function App (props: RouteComponentProps<TParams>) {
               <Dashboard
                 COLORS={COLORS}
                 data={data}
+                totaleDosiVaccino={totaleDosiVaccino}
                 dataSetTitle={dataSetTitle}
                 hideForProvince={hideForProvince}
                 handleClickSearch={handleClickSearch}

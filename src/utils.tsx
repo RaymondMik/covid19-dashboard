@@ -25,35 +25,13 @@ export const normalizeSearchStr = (str: string) => str.split(" ").join("").toLow
 //    return localisedHeader + parsedMonthsPortion;
 // }
 
-export const getDailyIncrement = (prevData: number, currData: number) => {
+export const getDailyIncrement = (prevData: number, currData: number, showPercentage: boolean = true) => {
    const difference: number = currData - prevData;
-   const percentageDifference: number = (difference / prevData) * 100;
+   const percentageDifference: number = showPercentage ? (difference / prevData) * 100 : difference;
 
    const incrementString = percentageDifference !== 0
-      ? `${percentageDifference > 0 ? "+" : ""}${percentageDifference.toFixed(2).toString()}%`
+      ? `${percentageDifference > 0 ? "+" : ""}${showPercentage ? percentageDifference.toFixed(2).toString() : percentageDifference.toFixed(0).toString()} ${showPercentage ? "%" : ""}`
       : "↔"
 
    return incrementString;
 };
-
-// export const useFetch = (url: string) => {
-//    const [state, setState] = useState({ data: null, isLoading: false });
-
-//    useEffect(() => {
-//       setState(state => ({ data: state.data, isLoading: true}));
-
-//       fetch(url)
-//          .then(res => res.json())
-//          .then(payload => {
-//             let dataArray: any[] = [];
-
-//             for (let datum in payload) {
-//                dataArray.push(payload[datum]);
-//             }
-
-//             setState({ data: dataArray, isLoading: false});
-//          })
-//    }, [])
-
-//    return state;
-// }
