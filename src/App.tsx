@@ -151,7 +151,7 @@ function App (props: RouteComponentProps<TParams>) {
     fetch(VACCINI_API_URL)
       .then(response => {
         if (!response.ok) {
-          throw Error(response.statusText);
+          dispatch({ type: "HAS_ERRORED" });
         }
 
         return response.json();
@@ -179,7 +179,7 @@ function App (props: RouteComponentProps<TParams>) {
           fetch(`${API_URL}-${fetchData}.json`)
             .then(response => {
               if (!response.ok) {
-                throw Error(response.statusText);
+                dispatch({ type: "HAS_ERRORED" });
               }
 
               return response.json();
@@ -341,7 +341,7 @@ function App (props: RouteComponentProps<TParams>) {
       
       <div className="container content">
         {isLoading && !hasErrored && (<div className="loading"></div>)}
-        {!isLoading && hasErrored && (<h2>Error</h2>)}
+        {!isLoading && hasErrored && (<h2>C'è stato un errore, ricarica la pagina per cortesia.</h2>)}
         {!isLoading && noData && !data.length && (<h2>404 not found</h2>)}
         {!isLoading && !hasErrored && data.length > 0 && (
           <Switch>

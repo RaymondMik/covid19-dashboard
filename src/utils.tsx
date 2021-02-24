@@ -30,7 +30,7 @@ export const getDailyIncrement = (prevData: number, currData: number, showPercen
    const percentageDifference: number = showPercentage ? (difference / prevData) * 100 : difference;
 
    const incrementString = percentageDifference !== 0
-      ? `${percentageDifference > 0 ? "+" : ""}${showPercentage ? percentageDifference.toFixed(2).toString() : percentageDifference.toFixed(0).toString()} ${showPercentage ? "%" : ""}`
+      ? `${percentageDifference > 0 ? "+" : ""}${showPercentage ? percentageDifference.toFixed(2).toString() : percentageDifference.toFixed(0).toString()}${showPercentage ? "%" : ""}`
       : "↔"
 
    return incrementString;
