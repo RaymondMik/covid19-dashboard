@@ -32,8 +32,8 @@ const Evolution = ({
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid stroke="#636363" strokeDasharray="3 3" />
-            <XAxis dataKey="name" stroke="#eee"/>
-            <YAxis stroke="#eee" />
+            <XAxis dataKey="name" stroke="#eee" tick={{fontSize: 12}} />
+            <YAxis stroke="#eee" tick={{fontSize: 12}} />
             <Tooltip contentStyle={{backgroundColor: "#282c34"}}/>
             <Legend 
               iconType={"plainline"}
