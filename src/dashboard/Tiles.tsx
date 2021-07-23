@@ -44,17 +44,18 @@ const Tiles = ({
         </div>
       </div>
     ) : (
-      <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
-        <div className="details-panel">
-          <div className="details-title">
-            <h4>{localisation.vaccinated}</h4>
-          </div>
-          <div className="details-value">
-            <p>{totaleDosiVaccino.toLocaleString("it")}</p>
-            <span className="value-difference">-</span>
-          </div>
-        </div>
-      </div>
+      // <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
+      //   <div className="details-panel">
+      //     <div className="details-title">
+      //       <h4>{localisation.vaccinated}</h4>
+      //     </div>
+      //     <div className="details-value">
+      //       <p>{totaleDosiVaccino.toLocaleString("it")}</p>
+      //       <span className="value-difference">-</span>
+      //     </div>
+      //   </div>
+      // </div>
+      <></>
     )}
     <div className="col-sm-6 col-md-6 col-lg-2 details-panel-wrapper">
       <div className="details-panel">
