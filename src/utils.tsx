@@ -1,6 +1,4 @@
-// import { useEffect, useState } from "react";
-
-export const parseDate = (date: string) => {
+export const parseDate = (date: string): string => {
    const splitDate: string[] = date.split("-");
    const splitTime = `${splitDate[2].split("T")[1].split(":")[0]}:${splitDate[2].split("T")[1].split(":")[1]}`;
    const splitDay = splitDate[2].split("T")[0];
@@ -9,6 +7,32 @@ export const parseDate = (date: string) => {
 }
 
 export const normalizeSearchStr = (str: string) => str.split(" ").join("").toLowerCase();
+
+interface getDailyIncrement {
+   prevData: number;
+   currData: number, 
+   showPercentage?: boolean,
+   showPlusSign?: boolean,
+   showNegative?: boolean
+}
+
+// calculate daily increment and parse string as required
+export const getDailyIncrement = ({ 
+   prevData,
+   currData,
+   showPercentage = true,
+   showNegative = true,
+   showPlusSign = true
+}: getDailyIncrement): string => {
+   const difference: number = currData - prevData;
+   const percentageDifference: number = (difference / prevData) * 100;
+
+   const sign = showPlusSign ? difference > 0 ? "+" : "" : "";
+   const numericValue = showNegative ? showPercentage ? percentageDifference.toFixed(2).toString() : difference.toString() : difference < 0 ? "↔" : showPercentage ? percentageDifference.toFixed(2).toString() : difference.toString();
+   const percentSign = showNegative && showPercentage ? "%" : "";
+
+   return difference !== 0 ? sign + numericValue + percentSign : "↔";
+};
 
 // export const getHeaderText = (currentLanguage: string, lastElementHeader: string, localisedHeader: string, localisedMonths: any) => {
 //    const regex = /gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre/gi;
@@ -24,14 +48,3 @@ export const normalizeSearchStr = (str: string) => str.split(" ").join("").toLow
 
 //    return localisedHeader + parsedMonthsPortion;
 // }
-
-export const getDailyIncrement = (prevData: number, currData: number, showPercentage: boolean = true) => {
-   const difference: number = currData - prevData;
-   const percentageDifference: number = showPercentage ? (difference / prevData) * 100 : difference;
-
-   const incrementString = percentageDifference !== 0
-      ? `${percentageDifference > 0 ? "+" : ""}${showPercentage ? percentageDifference.toFixed(2).toString() : percentageDifference.toFixed(0).toString()}${showPercentage ? "%" : ""}`
-      : "↔"
-
-   return incrementString;
-};
