@@ -31,6 +31,6 @@ describe("getDailyIncrement()", () => {
 
    test("should add no signs", () => {
       expect(getDailyIncrement({ prevData: 90, currData: 100, showPercentage: false, showPlusSign: false })).toBe("10");
-      expect(getDailyIncrement({ prevData: 73604, currData: 74159, showPercentage: false, showPlusSign: false })).toBe("555");
+      expect(getDailyIncrement({ prevData: 73604, currData: 74159, showPercentage: false, showPlusSign: false })).toBe("55555");
    })
 })
