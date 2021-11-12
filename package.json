@@ -41,6 +41,9 @@
     ]
   },
   "engines": {
-    "node": "10.24.1"
+    "node": "15.10.0"
+  },
+  "hooks": {
+    "pre-commit": "npm run test"
   }
 }
