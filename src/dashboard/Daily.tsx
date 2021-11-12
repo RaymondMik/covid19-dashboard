@@ -45,8 +45,8 @@ const Daily = ({
           <YAxis stroke="#eee" tick={{fontSize: 12}} />
           <Tooltip cursor={false} contentStyle={{backgroundColor: "#282c34"}}/>
           <Bar dataKey="totale_positivi" name={localisation.positives} barSize={60} fill={COLORS[0]} />
-          <Bar dataKey="dimessi_guariti" name={localisation.recovered} barSize={60} fill={COLORS[1]} />
-          <Bar dataKey="deceduti" name={localisation.deaths} barSize={60} fill={COLORS[2]} />
+          {/* <Bar dataKey="dimessi_guariti" name={localisation.recovered} barSize={60} fill={COLORS[1]} /> */}
+          {/* <Bar dataKey="deceduti" name={localisation.deaths} barSize={60} fill={COLORS[2]} /> */}
         </BarChart>
       </ResponsiveContainer>
       <ul>
@@ -54,14 +54,14 @@ const Daily = ({
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[0]}}/>
           {localisation.positives}: {data[selectedDateIndex].totale_positivi} ({getDailyIncrement(data[selectedDateIndex - 1].totale_positivi, data[selectedDateIndex].totale_positivi)})
         </li>
-        <li>
+        {/* <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[1]}}/>
           {localisation.recovered}: {data[selectedDateIndex].dimessi_guariti} ({getDailyIncrement(data[selectedDateIndex - 1].dimessi_guariti, data[selectedDateIndex].dimessi_guariti)})
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <span className="positive-details__icon" style={{ backgroundColor: COLORS[2]}}/>
           {localisation.deaths}: {data[selectedDateIndex].deceduti} ({getDailyIncrement(data[selectedDateIndex - 1].deceduti, data[selectedDateIndex].deceduti)})
-        </li>
+        </li> */}
       </ul>
     </section>
   );

@@ -65,7 +65,7 @@ const Dashboard = ({
                      <label 
                         className={`search-label  ${searchProvince ? "disabled" : ""}`}
                      >
-                        Vedi dati per regione
+                           Vedi dati per regione
                            <input 
                               type="text" 
                               name="search-regione" 
