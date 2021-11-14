@@ -1,3 +1,5 @@
+import { FormattedVaccini } from "./types";
+
 export const parseDate = (date: string): string => {
    const splitDate: string[] = date.split("-");
    const splitTime = `${splitDate[2].split("T")[1].split(":")[0]}:${splitDate[2].split("T")[1].split(":")[1]}`;
@@ -33,6 +35,40 @@ export const getDailyIncrement = ({
 
    return difference !== 0 ? sign + numericValue + percentSign : "↔";
 };
+
+interface vacciniObject {
+   index: number;
+   data_somministrazione: string; 
+   area: string; 
+   totale: number; 
+   sesso_maschile: number; 
+   sesso_femminile: number; 
+   prima_dose: number; 
+   seconda_dose: number; 
+   pregressa_infezione: number;
+   dose_aggiuntiva: number;
+   dose_booster: number;
+   codice_NUTS1: string; 
+   codice_NUTS2: string; 
+   codice_regione_ISTAT: number;
+   nome_area: string; 
+}
+
+export const formatVaccineData = (data: [vacciniObject]): FormattedVaccini => {
+   const formattedVaccini: FormattedVaccini = {};
+
+   for (let i = 0; i < data.length; i++) {
+      const dateGiven = data[i].data_somministrazione.split("T")[0];
+
+      if (!formattedVaccini[dateGiven]) {
+         formattedVaccini[dateGiven] = data[i].totale;
+       } else {
+         formattedVaccini[dateGiven] = formattedVaccini[dateGiven] + data[i].totale;
+       }
+   }
+
+   return formattedVaccini;
+}
 
 // export const getHeaderText = (currentLanguage: string, lastElementHeader: string, localisedHeader: string, localisedMonths: any) => {
 //    const regex = /gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre/gi;

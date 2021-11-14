@@ -15,6 +15,7 @@ import * as L from "./localisation.json";
 import * as StaticRegioniProvinceNames from "./static.json";
 import virusIcon from "./icons/virusIcon.svg";
 import { InitialState, FormattedVaccini } from "./types";
+import { formatVaccineData } from "./utils";
 
 const initialState: InitialState = { 
   data: [],
@@ -157,21 +158,8 @@ function App (props: RouteComponentProps<TParams>) {
         return response.json();
       })
       .then((res) => {
-          const formattedVaccini: FormattedVaccini = {};
-
-          const totaleDosiVaccino = res.data
-            .map((item: any) => {
-              // here we also extract the data to be added to the formattedVaccini object
-              const date: string = item.data_somministrazione.split("T")[0];
-              if (!formattedVaccini[date]) {
-                formattedVaccini[date] = item.totale;
-              } else {
-                formattedVaccini[date] = formattedVaccini[date] + item.totale;
-              }
-
-              return item;
-            })
-            .reduce((accumulator: number, currentValue: any) => accumulator + currentValue.totale, 0);
+          const formattedVaccini: FormattedVaccini = formatVaccineData(res.data);
+          const totaleDosiVaccino = res.data.reduce((accumulator: number, currentValue: any) => accumulator + currentValue.totale, 0);
 
           dispatch({ type: "SET_TOTALE_VACCINI", payload: totaleDosiVaccino });
 
@@ -212,7 +200,7 @@ function App (props: RouteComponentProps<TParams>) {
                 const filteredDataWithVaccini = filteredData.map((item: any) => {
                   const searchIndex = item.data.split("T")[0]
                   if (formattedVaccini[searchIndex]) {
-                    item.totale_dosi_vaccino = formattedVaccini[searchIndex];
+                    item.dosi_vaccino_somministrate = formattedVaccini[searchIndex];
                   }
 
                   return item;
@@ -306,7 +294,7 @@ function App (props: RouteComponentProps<TParams>) {
   return (
     <div className="app">
       <nav className="navbar navbar-dark navbar-expand-md bg-dark justify-content-between sitenav">
-        <div className="container">
+        <div className="container-fluid">
           <Link to="/" className="navbar-brand site-title-container">
             <img src={virusIcon} className="site-icon" alt="icona che rappresenta la forma del virus COVID-19" />
             <h2>{localisation.title}</h2>
@@ -339,7 +327,7 @@ function App (props: RouteComponentProps<TParams>) {
         </div>
       </nav>
       
-      <div className="container content">
+      <div className="container-fluid content">
         {isLoading && !hasErrored && (<div className="loading"></div>)}
         {!isLoading && hasErrored && (<h2>C'è stato un errore, ricarica la pagina per cortesia.</h2>)}
         {!isLoading && noData && !data.length && (<h2>404 not found</h2>)}

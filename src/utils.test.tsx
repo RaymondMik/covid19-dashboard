@@ -1,4 +1,5 @@
 import { getDailyIncrement } from "./utils";
+// import { mockData } from "../mockData.js"
 
 describe("getDailyIncrement()", () => {
    test("should return a string", () => {
@@ -34,3 +35,11 @@ describe("getDailyIncrement()", () => {
       expect(getDailyIncrement({ prevData: 73604, currData: 74159, showPercentage: false, showPlusSign: false })).toBe("555");
    })
 })
+
+// describe("formatVaccineData()", () => {
+//    test("should calculate total vaccines given by date", () => {
+//       expect(formatVaccineData(mockData)).toEqual({
+//          "2021-04-16": 3000, "2021-04-18": 5000, "2021-04-20": 939, "2021-04-22": 5062, "2021-06-21": 1000, "2021-08-15": 4423
+//       });
+//    })
+// })

@@ -21,7 +21,7 @@ const Evolution = ({
     return datum;
   });
 
-  // const isRegione = window.location.pathname.split("/")[1] === "regioni";
+  const isRegione = window.location.pathname.split("/")[1] === "regioni";
 
   return (
     <section className={`panel ${cssClass}`}>
@@ -57,7 +57,7 @@ const Evolution = ({
               iconSize={35}
             />
             <Line type="monotone" dataKey="totale_positivi" dot={false} strokeWidth={3} name={data.data} stroke={COLORS[0]} />
-            {/* {!isRegione && <Line type="monotone" dataKey="totale_dosi_vaccino" dot={false} strokeWidth={2} name={data.data} stroke={COLORS[1]} />} */}
+            {/* {!isRegione && <Line type="monotone" dataKey="dosi_vaccino_somministrate" dot={false} strokeWidth={2} name={data.data} stroke={COLORS[1]} />} */}
             <Line type="monotone" dataKey="deceduti" dot={false} strokeWidth={3} name={data.data} stroke={COLORS[2]} />
           </LineChart>
         </ResponsiveContainer>
