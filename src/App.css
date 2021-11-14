@@ -307,10 +307,6 @@ a > .details-title > h4:hover {
   transform: translate(-22px, 5px);
 }
 
-.source-link {
-  margin: 2% 0;
-}
-
 .link {
   color: #f8f9fa;
   text-decoration: underline;
